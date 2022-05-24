@@ -1,0 +1,43 @@
+# 端口 项目根
+server:
+  port: 80
+  servlet:
+    context-path: /
+# spring
+spring:
+  # 程序主入口
+  main:
+    allow-circular-references: true
+  # mvc
+  mvc:
+    # 视图渲染
+    view:
+      prefix: /pages/
+      suffix: .jsp
+  # 数据库数据源
+  datasource:
+    url: jdbc:mysql://localhost:3306/membergl?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: xwd1499557299
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      # 心跳检查
+      idle-timeout: 60000
+      # 连接的超时时间
+      connection-timeout: 60000
+      # 接校验的超时时间
+      validation-timeout: 3000
+      # 连接数据库的超时时间
+      login-timeout: 5
+      # 连接池中连接的最大生存时间，毫秒单位
+      max-lifetime: 1800000
+      maximum-pool-size: 60
+      minimum-idle: 10
+      # 该属性表示连接池的用户定义名称，主要出现在日志记录和JMX管理控制台中，以识别池和池配置。 默认值：自动生成
+      pool-name: BizvaneHikariCP
+
+# 数据分页插件配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
