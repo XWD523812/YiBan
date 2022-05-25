@@ -17,7 +17,7 @@ import java.util.List;
 @Mapper
 public interface MemberMapper {
 
-    //根据姓名或者id查询所有  需要权限<=0
+    //根据姓名或者id查询所有  需要本人或者权限<=0
     @Select("<script>" +
             "SELECT * from member" +
             "<where>" +

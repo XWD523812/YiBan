@@ -3,6 +3,11 @@ server:
   port: 80
   servlet:
     context-path: /
+    # 配置响应消息编码
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 # spring
 spring:
   # 程序主入口

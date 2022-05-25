@@ -1,6 +1,6 @@
 package com.ldzy.yiban.exception;
 
-import com.ldzy.yiban.utils.ResponseCode;
+import com.ldzy.yiban.utils.ResultCode;
 
 /**
  * @Auction:XWD
@@ -11,14 +11,14 @@ import com.ldzy.yiban.utils.ResponseCode;
 
 
 public class LoginException extends Exception{
-    private ResponseCode error;
+    private ResultCode error;
 
-    public ResponseCode getError() {
+    public ResultCode getError() {
         return error;
     }
 
-    public LoginException(ResponseCode error){
-        super(error.getDesc());
+    public LoginException(ResultCode error){
+        super(error.getMsg());
         this.error=error;
     }
 }

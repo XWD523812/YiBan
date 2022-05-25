@@ -1,6 +1,6 @@
 package com.ldzy.yiban.exception;
 
-import com.ldzy.yiban.utils.ResponseCode;
+import com.ldzy.yiban.utils.ResultCode;
 
 
 /**
@@ -11,13 +11,13 @@ import com.ldzy.yiban.utils.ResponseCode;
  */
 
 public class RegisterException extends Exception{
-    private ResponseCode error;
+    private ResultCode error;
 
-    public ResponseCode getError() {
+    public ResultCode getError() {
         return error;
     }
-    public RegisterException(ResponseCode error){
-        super(error.getDesc());
+    public RegisterException(ResultCode error){
+        super(error.getMsg());
         this.error=error;
     }
 }
