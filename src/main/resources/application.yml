@@ -8,6 +8,9 @@ spring:
   # 程序主入口
   main:
     allow-circular-references: true
+  # thymeleaf的模板缓存会在第一次对模板解析之后进行缓存,极大提高了并发处理能力。但是这给我们开发带来了不便，修改页面后并不会立刻看到效果，我们开发阶段可以关掉缓存使用
+  thymeleaf:
+    cache: false
   # mvc
   mvc:
     # 视图渲染
@@ -35,6 +38,10 @@ spring:
       minimum-idle: 10
       # 该属性表示连接池的用户定义名称，主要出现在日志记录和JMX管理控制台中，以识别池和池配置。 默认值：自动生成
       pool-name: BizvaneHikariCP
+  # json数据
+  jackson:
+    #日期格式化
+    date-format: yyyy-MM-dd HH:mm;ss
 
 # 数据分页插件配置
 pagehelper:
