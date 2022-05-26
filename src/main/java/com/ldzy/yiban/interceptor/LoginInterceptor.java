@@ -1,8 +1,8 @@
 package com.ldzy.yiban.interceptor;
 
 import com.ldzy.yiban.model.Member;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerInterceptor;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,7 +23,9 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (member != null) {//该用户最近登录过
             return true;
         }
-        response.getWriter().write("您还未登录，请您先登录");
+        response.getWriter().write("未登录");
+        //重定向到登录页面 前后端分离一般使用json数据返回
+        //response.sendRedirect("https://www.baidu.com/");
         return false;
     }
 }

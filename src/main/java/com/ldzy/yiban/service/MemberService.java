@@ -15,9 +15,6 @@ import org.springframework.stereotype.Service;
 public interface MemberService {
 //default 默认接口，不需要都实现
 
-    default void upAllMember(int id,String membername,String password,String bumen,Double force,Integer qx){
-    }
-
     default PageInfo<Member> findMember(int pageNum,int pageSize, String bumen){
         return null;
     }
@@ -33,8 +30,12 @@ public interface MemberService {
     default void upMember(int id, Double addForce){
     }
 
+    default void upAllMember(int id,String membername,String password,String bumen,Double force,Integer qx){
+    }
+
     default void addMember(int id,String membername,String bumen){
     }
 
     default void deleteMember(int id){}
+
 }

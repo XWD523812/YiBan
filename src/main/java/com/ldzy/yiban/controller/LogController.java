@@ -2,6 +2,9 @@ package com.ldzy.yiban.controller;
 
 import com.ldzy.yiban.model.Member;
 import com.ldzy.yiban.service.MemberService;
+import com.ldzy.yiban.utils.Result;
+import com.ldzy.yiban.utils.ResultCode;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,21 +28,21 @@ public class LogController {
     public MemberService memberService;
 
     @PostMapping("/login")
-    public Member login(HttpSession session ,int id, String membername, String password)  {
+    public Result<Member> login(HttpSession session ,int id, String membername, String password)  {
         //通过id或姓名来登录
         Member member = memberService.findMemberId(id,membername);
         if (member.getPassword().equals(password)) {
             //新建一个session用于登录控制
             session.setAttribute("member",member);
-            return member;
+            return Result.success(member);
         }
-        return null;
+        return Result.errorName(null);
     }
 
     @PostMapping("/logout")
-    public String logout(HttpSession session){
+    public Result<String> logout(HttpSession session){
         session.removeAttribute("member");
-        return "退出登录成功";
+        return Result.success("已退出登录");
     }
 
 }
