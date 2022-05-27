@@ -2,14 +2,15 @@ package com.ldzy.yiban.utils;
 
 
 public enum ResultCode implements ErrorCode{
-    SUCCESS(200,"操作成功"),
-    ERROR(400,"操作失败"),
-    NOT_LOGIN(401,"未登录"),
-    NOT_USER_OR_PASSWORD(402,"没用该用户或者密码不对"),
-    ERROR_NAME(403,"有重名的现象，请使用id进行登录"),
-    ERROR_DB(404,"数据库异常"),
-    ERROR_USERNAME(405,"用户已存在"),
-    ERROR_PARAMS(406,"请求参数格式不对或类型不对或缺失参数项！");
+    SUCCESS(2000,"操作成功"),
+    ERROR(3000,"操作失败"),
+    ERROR_DB(4000,"数据库异常"),
+    NOT_LOGIN(4001,"未登录"),
+    NOT_USER_OR_PASSWORD(4002,"用户名或者密码不对"),
+    ERROR_NAME_OR_ID(4003,"有重名的现象，请使用id进行登录"),
+    ERROR_USER_LONG(4004,"用户名长度最多为五个字"),
+    ERROR_USER(4005,"用户已存在"),
+    ERROR_PARAMS(4006,"请求参数格式不对或类型不对或缺失参数项！");
 
     private int code;
     private String msg;

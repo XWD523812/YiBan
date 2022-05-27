@@ -13,8 +13,15 @@ import com.ldzy.yiban.utils.ResultCode;
 public class LoginException extends Exception{
     private ResultCode error;
 
+    public LoginException() {
+    }
+
     public ResultCode getError() {
         return error;
+    }
+
+    public void setError(ResultCode error) {
+        this.error = error;
     }
 
     public LoginException(ResultCode error){

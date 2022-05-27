@@ -36,7 +36,7 @@ public class LogController {
             session.setAttribute("member",member);
             return Result.success(member);
         }
-        return Result.errorName(null);
+        return Result.noUserOrPassword();
     }
 
     @PostMapping("/logout")

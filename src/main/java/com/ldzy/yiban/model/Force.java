@@ -19,6 +19,9 @@ public class Force {
     private String forceadddata;
     private Date forcedate;
 
+    public Force() {
+    }
+
     @Override
     public String toString() {
         return "Force{" +

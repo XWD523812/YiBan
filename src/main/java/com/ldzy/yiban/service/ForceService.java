@@ -16,5 +16,5 @@ public interface ForceService {
         return null;
     }
 
-    default void addForce(int memberid, int forceindex, String forceadddata){}
+    default void addForce(Integer memberid, Integer forceindex, String forceadddata){}
 }

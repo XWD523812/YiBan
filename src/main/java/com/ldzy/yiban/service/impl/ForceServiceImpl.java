@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ldzy.yiban.mapper.ForceMapper;
 import com.ldzy.yiban.model.Force;
-import com.ldzy.yiban.model.Member;
 import com.ldzy.yiban.service.ForceService;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +30,8 @@ public class ForceServiceImpl implements ForceService {
     }
 
     @Override
-    public void addForce(int memberid, int forceindex, String forceadddata) {
+    public void addForce(Integer memberid, Integer forceindex, String forceadddata) {
         forceMapper.addForce(memberid,forceindex,forceadddata);
     }
+    
 }

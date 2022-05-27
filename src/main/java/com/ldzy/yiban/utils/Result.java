@@ -50,29 +50,33 @@ public class Result<T> {
     public static <T> Result<T> failed(String msg) {
         return new Result<T>(ResultCode.ERROR.getCode(), msg);
     }
-    //未登录
-    public static <T> Result<T> noLogin(T data) {
-        return new Result<T>(ResultCode.NOT_LOGIN.getCode(), ResultCode.NOT_LOGIN.getMsg(), data);
-    }
-    //没用该用户或者密码不对
-    public static <T> Result<T> noUserOrPassword(T data) {
-        return new Result<T>(ResultCode.NOT_USER_OR_PASSWORD.getCode(), ResultCode.NOT_USER_OR_PASSWORD.getMsg(), data);
-    }
-    //登录重名
-    public static <T> Result<T> errorName(T data) {
-        return new Result<T>(ResultCode.ERROR_NAME.getCode(), ResultCode.ERROR_NAME.getMsg(), data);
-    }
     //数据库异常
     public static <T> Result<T> errorDB(T data) {
-        return new Result<T>(ResultCode.ERROR_DB.getCode(), ResultCode.ERROR_DB.getMsg(), data);
+        return new Result<T>(ResultCode.ERROR_DB.getCode(), ResultCode.ERROR_DB.getMsg(),data);
+    }
+    //未登录
+    public static <T> Result<T> noLogin() {
+        return new Result<T>(ResultCode.NOT_LOGIN.getCode(), ResultCode.NOT_LOGIN.getMsg());
+    }
+    //没用该用户或者密码不对
+    public static <T> Result<T> noUserOrPassword() {
+        return new Result<T>(ResultCode.NOT_USER_OR_PASSWORD.getCode(), ResultCode.NOT_USER_OR_PASSWORD.getMsg());
+    }
+    //数据有重复
+    public static <T> Result<T> errorNameOrId() {
+        return new Result<T>(ResultCode.ERROR_NAME_OR_ID.getCode(), ResultCode.ERROR_NAME_OR_ID.getMsg());
+    }
+    //用户名长度超出
+    public static <T> Result<T> errorUsernameLong() {
+        return new Result<T>(ResultCode.ERROR_USER_LONG.getCode(), ResultCode.ERROR_USER_LONG.getMsg());
     }
     //注册用户名已存在
-    public static <T> Result<T> errorUsername(T data) {
-        return new Result<T>(ResultCode.ERROR_USERNAME.getCode(), ResultCode.ERROR_USERNAME.getMsg(), data);
+    public static <T> Result<T> errorUsername() {
+        return new Result<T>(ResultCode.ERROR_USER.getCode(), ResultCode.ERROR_USER.getMsg());
     }
     //请求参数格式不对或类型不对或缺失参数项
-    public static <T> Result<T> errorParams(T data) {
-        return new Result<T>(ResultCode.ERROR_PARAMS.getCode(), ResultCode.ERROR_PARAMS.getMsg(), data);
+    public static <T> Result<T> errorParams() {
+        return new Result<T>(ResultCode.ERROR_PARAMS.getCode(), ResultCode.ERROR_PARAMS.getMsg());
     }
 
 
