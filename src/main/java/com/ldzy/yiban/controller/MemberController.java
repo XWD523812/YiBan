@@ -21,8 +21,8 @@ public class MemberController {
     public MemberService memberService;
 
     @PostMapping("/findID")
-    public Member findMemberId(int id,String membername){
-        Member member = memberService.findMemberId(id,membername);
+    public Member findMemberId(int memberid,String membername){
+        Member member = memberService.findMemberId(memberid,membername);
         return member;
     }
 
@@ -38,27 +38,32 @@ public class MemberController {
         return queryResult;
     }
 
-    @PostMapping("/upMember")
-    public Member upMember(int id,String membername,Double addForce){
-        memberService.upMember(id,addForce);
-        return memberService.findMemberId(id,membername);
+    @PostMapping("/findMemberForce")
+    public Member findMemberForce(int memberid){
+        Member member = memberService.findMemberForce(memberid);
+        return member;
+    }
+
+    @PostMapping("/upMemberForce")
+    public Member upMember(int memberid,String membername,Double force){
+        memberService.upMemberForce(memberid,force);
+        return memberService.findMemberId(memberid,membername);
     }
 
     @PostMapping("/upAllMember")
-    public Member upAllMember(int id, String membername, String password, String bumen,@RequestParam(defaultValue = "0") Double force, Integer qx){
-        memberService.upAllMember(id,membername,password,bumen,force,qx);
-        System.out.println(id+membername+password+bumen+force+qx);
-        return memberService.findMemberId(id,membername);
+    public Member upAllMember(int memberid, String membername, String password, String bumen,@RequestParam(defaultValue = "0") Double force, Integer qx){
+        memberService.upAllMember(memberid,membername,password,bumen,force,qx);
+        return memberService.findMemberId(memberid,membername);
     }
 
     @PostMapping("/addMember")
-    public Member addMember(int id,String membername,String bumen) throws Exception{
-        memberService.addMember(id,membername,bumen);
-        return memberService.findMemberId(id,membername);
+    public Member addMember(int memberid,String membername,String bumen) throws Exception{
+        memberService.addMember(memberid,membername,bumen);
+        return memberService.findMemberId(memberid,membername);
     }
 
     @PostMapping("/deleteMember")
-    public void deleteMember(int id){
-        memberService.deleteMember(id);
+    public void deleteMember(int memberid){
+        memberService.deleteMember(memberid);
     }
 }

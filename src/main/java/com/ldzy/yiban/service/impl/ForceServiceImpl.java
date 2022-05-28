@@ -30,8 +30,17 @@ public class ForceServiceImpl implements ForceService {
     }
 
     @Override
-    public void addForce(Integer memberid, Integer forceindex, String forceadddata) {
+    public void addForce(int memberid, Double forceindex, String forceadddata) {
         forceMapper.addForce(memberid,forceindex,forceadddata);
     }
-    
+
+    @Override
+    public void upForce(int forceid, int memberid, Double forceindex, String forceadddata) {
+        forceMapper.upForce(forceid, memberid, forceindex, forceadddata);
+    }
+
+    @Override
+    public void deleteForce(int forceid) {
+        forceMapper.deleteForce(forceid);
+    }
 }

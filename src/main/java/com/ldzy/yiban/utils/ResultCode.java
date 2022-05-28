@@ -10,7 +10,8 @@ public enum ResultCode implements ErrorCode{
     ERROR_NAME_OR_ID(4003,"有重名的现象，请使用id进行登录"),
     ERROR_USER_LONG(4004,"用户名长度最多为五个字"),
     ERROR_USER(4005,"用户已存在"),
-    ERROR_PARAMS(4006,"请求参数格式不对或类型不对或缺失参数项！");
+    ERROR_PARAMS(4006,"请求参数格式不对或类型不对或缺失参数项！"),
+    ERROR_WEB_YB(5000,"服务器内部错误！");
 
     private int code;
     private String msg;

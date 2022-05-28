@@ -14,8 +14,8 @@ import java.util.Date;
 @Component
 public class Force {
     private int forceid;
-    private String memberid;
-    private int forceindex;
+    private int memberid;
+    private Double forceindex;
     private String forceadddata;
     private Date forcedate;
 
@@ -41,19 +41,19 @@ public class Force {
         this.forceid = forceid;
     }
 
-    public String getMemberid() {
+    public int getMemberid() {
         return memberid;
     }
 
-    public void setMemberid(String memberid) {
+    public void setMemberid(int memberid) {
         this.memberid = memberid;
     }
 
-    public int getForceindex() {
+    public Double getForceindex() {
         return forceindex;
     }
 
-    public void setForceindex(int forceindex) {
+    public void setForceindex(Double forceindex) {
         this.forceindex = forceindex;
     }
 

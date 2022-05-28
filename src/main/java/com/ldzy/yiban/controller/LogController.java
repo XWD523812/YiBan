@@ -28,9 +28,9 @@ public class LogController {
     public MemberService memberService;
 
     @PostMapping("/login")
-    public Result<Member> login(HttpSession session ,int id, String membername, String password)  {
+    public Result<Member> login(HttpSession session ,int memberid, String membername, String password)  {
         //通过id或姓名来登录
-        Member member = memberService.findMemberId(id,membername);
+        Member member = memberService.findMemberId(memberid,membername);
         if (member.getPassword().equals(password)) {
             //新建一个session用于登录控制
             session.setAttribute("member",member);

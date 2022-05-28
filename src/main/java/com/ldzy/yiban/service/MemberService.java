@@ -19,7 +19,7 @@ public interface MemberService {
         return null;
     }
 
-    default Member findMemberId(int id,String membername){
+    default Member findMemberId(int memberid,String membername){
         return null;
     }
 
@@ -27,15 +27,19 @@ public interface MemberService {
         return null;
     }
 
-    default void upMember(int id, Double addForce){
+    default Member findMemberForce(int memberid){
+        return null;
     }
 
-    default void upAllMember(int id,String membername,String password,String bumen,Double force,Integer qx){
+    default void upMemberForce(int memberid, Double force){
     }
 
-    default void addMember(int id,String membername,String bumen){
+    default void upAllMember(int memberid,String membername,String password,String bumen,Double force,Integer qx){
     }
 
-    default void deleteMember(int id){}
+    default void addMember(int memberid,String membername,String bumen){
+    }
+
+    default void deleteMember(int memberid){}
 
 }

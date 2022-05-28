@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @ControllerAdvice
 @ResponseBody
-public class YBException {
-    private static final Logger log = LoggerFactory.getLogger(YBException.class);
+public class YBExceptionControllerAdvice {
+    private static final Logger log = LoggerFactory.getLogger(YBExceptionControllerAdvice.class);
 
     @ExceptionHandler(value = Exception.class)
     public String exceptionHandler(Exception e){
@@ -30,8 +30,8 @@ public class YBException {
 
     @ExceptionHandler(value = MyBatisSystemException.class)
     public Result<String> myBatisSystemExceptionHandle(Exception e) {
-        System.out.println("数据库异常。数据有重复！"+e);
-        return Result.errorDB("操作成功，但有多条相同数据");
+        System.out.println("数据库异常。原因是："+e);
+        return Result.errorDB("数据库异常。"+e);
     }
 
     @ExceptionHandler(value = DuplicateKeyException.class)

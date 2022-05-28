@@ -3,6 +3,7 @@ package com.ldzy.yiban.model;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Component
 public class Member implements Serializable {
@@ -14,6 +15,8 @@ public class Member implements Serializable {
 	private String bumen; // 部门
 	private Double force; // 总战力
 	private int qx; // 权限
+
+	private List<Force> forces;
 
 	public Member() {
 	}
@@ -62,12 +65,12 @@ public class Member implements Serializable {
 		this.bumen = bumen;
 	}
 
-	public Double getforce() {
+	public Double getForce() {
 		return force;
 	}
 
-	public void setforce(Double jifen) {
-		this.force = jifen;
+	public void setForce(Double force) {
+		this.force = force;
 	}
 
 	public int getQx() {
@@ -76,5 +79,13 @@ public class Member implements Serializable {
 
 	public void setQx(int qx) {
 		this.qx = qx;
+	}
+
+	public List<Force> getForces() {
+		return forces;
+	}
+
+	public void setForces(List<Force> forces) {
+		this.forces = forces;
 	}
 }

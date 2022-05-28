@@ -22,8 +22,8 @@ public class MemberServiceImpl implements MemberService {
     public MemberMapper memberMapper;
 
     @Override
-    public Member findMemberId(int id,String membername) {
-        return memberMapper.findMemberId(id,membername);
+    public Member findMemberId(int memberid,String membername) {
+        return memberMapper.findMemberId(memberid,membername);
     }
 
     @Override
@@ -34,22 +34,34 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void upAllMember(int id, String membername, String password, String bumen, Double force, Integer qx) {
-        memberMapper.upAllMember(id,membername,password,bumen,force,qx);
+    public PageInfo<Member> findTopMember(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Member> lists = memberMapper.findTopMember();
+        return new PageInfo<Member>(lists);
     }
 
     @Override
-    public void upMember(int id, Double addForce) {
-        memberMapper.upMember(id, addForce);
+    public Member findMemberForce(int memberid) {
+        return memberMapper.findMemberForce(memberid);
     }
 
     @Override
-    public void addMember(int id, String membername, String bumen) {
-        memberMapper.addMember(id, membername, bumen);
+    public void upAllMember(int memberid, String membername, String password, String bumen, Double force, Integer qx) {
+        memberMapper.upAllMember(memberid,membername,password,bumen,force,qx);
     }
 
     @Override
-    public void deleteMember(int id) {
-        memberMapper.deleteMember(id);
+    public void upMemberForce(int memberid, Double force) {
+        memberMapper.upMemberForce(memberid, force);
+    }
+
+    @Override
+    public void addMember(int memberid, String membername, String bumen) {
+        memberMapper.addMember(memberid, membername, bumen);
+    }
+
+    @Override
+    public void deleteMember(int memberid) {
+        memberMapper.deleteMember(memberid);
     }
 }

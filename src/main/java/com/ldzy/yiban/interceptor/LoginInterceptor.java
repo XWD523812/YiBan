@@ -3,7 +3,6 @@ package com.ldzy.yiban.interceptor;
 import com.ldzy.yiban.exception.LoginException;
 import com.ldzy.yiban.model.Member;
 import com.ldzy.yiban.utils.ResultCode;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,12 +24,12 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (member != null) {//该用户最近登录过
             return true;
         }
+
         try {
             int i=1/0;
         }catch (Exception e){
            throw new LoginException(ResultCode.NOT_LOGIN);
         }
-
         //重定向到登录页面 前后端分离一般使用json数据返回
         //response.sendRedirect("https://www.baidu.com/");
         return false;

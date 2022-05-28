@@ -53,7 +53,12 @@ public class Result<T> {
     //数据库异常
     public static <T> Result<T> errorDB(T data) {
         return new Result<T>(ResultCode.ERROR_DB.getCode(), ResultCode.ERROR_DB.getMsg(),data);
+    //服务器内部错误
     }
+    public static <T> Result<T> errorWebYB(T data) {
+        return new Result<T>(ResultCode.ERROR_WEB_YB.getCode(), ResultCode.ERROR_WEB_YB.getMsg(),data);
+    }
+
     //未登录
     public static <T> Result<T> noLogin() {
         return new Result<T>(ResultCode.NOT_LOGIN.getCode(), ResultCode.NOT_LOGIN.getMsg());
