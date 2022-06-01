@@ -30,6 +30,10 @@ public interface MemberService {
         return null;
     }
 
+    default Member findMemberBulletins(Member member){
+        return null;
+    }
+
     default PageInfo<Member> findMembers( Member member ,int pageNum ,int pageSize){
         return null;
     }

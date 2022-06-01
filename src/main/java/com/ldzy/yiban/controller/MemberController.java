@@ -44,16 +44,20 @@ public class MemberController {
         return Result.success(member);
     }
 
+    @PostMapping("/findMemberForces")
+    public Result<Member> findMemberForce( Member memberid){
+        return Result.success(memberService.findMemberForce(memberid));
+    }
+
+    @PostMapping("/findMemberBulletins")
+    public Result<Member> findMemberBulletins( Member memberid){
+        return Result.success(memberService.findMemberBulletins(memberid));
+    }
+
     @PostMapping("/findMembers")
     public Result<PageInfo<Member>> findMembers(Member member ,@RequestParam(defaultValue = "1") Integer pageNum){
         PageInfo<Member> queryResult = memberService.findMembers(member,pageNum,10); // pageNum:当前页码数，第一次进来时默认为1（首页）
         return Result.success(queryResult);
-    }
-
-    @PostMapping("/findMemberForce")
-    public Result<Member> findMemberForce( Member memberid){
-        return Result.success(memberService.findMemberForce(memberid));
-
     }
 
 }

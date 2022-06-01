@@ -61,6 +61,8 @@ public interface MemberMapper {
 
     /**
      * @param member 根据id查询战力值，包括战力日志  需要本人或者权限<=0
+     *               一对多查询，将List对象集合接受到List<Bulletin> bulletins属性里面
+     *               加载成员信息里面及的所有告示
      *               column	为数据库字段名，
      *               property	为实体类属性名，
      *               jdbcType	为数据库字段数据类型，
@@ -70,12 +72,26 @@ public interface MemberMapper {
      * @return
      */
     @Select("SELECT memberid,membername,bumen,`force` FROM member WHERE memberid = #{memberid}")
-    @Results(id = "forceMap" , value = {
+    @Results(id = "ForceMap" , value = {
             @Result(column = "memberid",property = "memberid"),
             @Result(column = "memberid",property = "forces",
             many = @Many(select = "com.ldzy.yiban.mapper.ForceMapper.findMemberForces")
             )
     })
     public Member findMemberForce(Member member);
+
+    /**
+     * 一对多查询，将List对象集合接受到List<Bulletin> bulletins属性里面
+     *  加载成员信息里面及的所有告示
+     * @return
+     */
+    @Select("SELECT memberid,membername,bumen,`force` FROM member WHERE memberid = #{memberid}")
+    @Results(id = "BulletinMap" , value = {
+            @Result(column = "memberid",property = "memberid"),
+            @Result(column = "memberid",property = "bulletins",
+            many = @Many(select = "com.ldzy.yiban.mapper.BulletinMapper.findMemberBulletins")
+            )
+    })
+    public Member findMemberBulletins(Member member);
 
 }

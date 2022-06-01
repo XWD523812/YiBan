@@ -3,7 +3,6 @@ import com.ldzy.yiban.model.Force;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
-import java.net.http.HttpHeaders;
 import java.util.List;
 
 /**
@@ -39,7 +38,9 @@ public interface ForceMapper {
 
     @Select("<script>" +
             "SELECT * FROM `force` " +
-            "<if test='memberid != null'> WHERE memberid = #{memberid} </if>" +
+            "<where>" +
+            "<if test='memberid != null'> memberid = #{memberid} </if>" +
+            "</where>" +
             "</script>")
     public List<Force> findForces(@Param(value="memberid")Integer memberid);
 

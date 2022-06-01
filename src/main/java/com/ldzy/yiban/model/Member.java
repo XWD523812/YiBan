@@ -18,6 +18,7 @@ public class Member implements Serializable {
 	private Integer qx; // 权限
 
 	private List<Force> forces;
+	private List<Bulletin> bulletins;
 
 	public Member() {
 	}
@@ -34,6 +35,7 @@ public class Member implements Serializable {
 				", introduce='" + introduce + '\'' +
 				", qx=" + qx +
 				", forces=" + forces +
+				", bulletins=" + bulletins +
 				'}';
 	}
 
@@ -107,5 +109,13 @@ public class Member implements Serializable {
 
 	public void setForces(List<Force> forces) {
 		this.forces = forces;
+	}
+
+	public List<Bulletin> getBulletins() {
+		return bulletins;
+	}
+
+	public void setBulletins(List<Bulletin> bulletins) {
+		this.bulletins = bulletins;
 	}
 }

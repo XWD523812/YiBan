@@ -42,15 +42,20 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public Member findMemberForce(Member member) {
+        return memberMapper.findMemberForce(member);
+    }
+
+    @Override
+    public Member findMemberBulletins(Member member) {
+        return memberMapper.findMemberBulletins(member);
+    }
+
+    @Override
     public PageInfo<Member> findMembers(Member member ,int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         List<Member> lists=memberMapper.findMembers(member);
         return new PageInfo<Member>(lists);
-    }
-
-    @Override
-    public Member findMemberForce(Member member) {
-        return memberMapper.findMemberForce(member);
     }
 
 }

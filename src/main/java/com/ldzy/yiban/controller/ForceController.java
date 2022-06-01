@@ -46,13 +46,13 @@ public class ForceController {
     }
 
     @PostMapping("/updateForce")
-    public Result<Force> updateMember(Force force){
+    public Result<Force> updateForce(Force force){
         forceService.updateForce(force);
         return Result.success(forceService.findForce(force));
     }
 
     @PostMapping("/deleteForce")
-    public Result<Force> deleteMember(Force force){
+    public Result<Force> deleteForce(Force force){
         forceService.deleteForce(force);
         return Result.success(forceService.findForce(force));
     }

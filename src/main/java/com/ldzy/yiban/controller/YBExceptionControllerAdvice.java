@@ -3,6 +3,7 @@ package com.ldzy.yiban.controller;
 import com.ldzy.yiban.exception.LoginException;
 import com.ldzy.yiban.utils.Result;
 import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
+import org.apache.ibatis.reflection.ReflectionException;
 import org.mybatis.logging.Logger;
 import org.mybatis.logging.LoggerFactory;
 import org.mybatis.spring.MyBatisSystemException;
@@ -30,7 +31,7 @@ public class YBExceptionControllerAdvice {
 
     @ExceptionHandler(value = MyBatisSystemException.class)
     public Result<String> myBatisSystemExceptionHandle(Exception e) {
-        System.out.println("数据库异常。原因是："+e);
+        System.out.println("数据库异常。MyBatis映射失败 原因是："+e);
         return Result.errorDB("数据库异常。"+e);
     }
 

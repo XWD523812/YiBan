@@ -31,7 +31,7 @@ public class LogController {
     public Result<Member> login(HttpSession session ,Member memberLogin)  {
         //通过id或姓名来登录
         Member member = memberService.findMember(memberLogin);
-        if (member.getPassword().equals(memberLogin.getPassword())) {
+        if (member.getPassword().equals(memberLogin.getPassword()) && member.getQx() <= memberLogin.getQx()) {
             //新建一个session用于登录控制
             session.setAttribute("member",member);
             return Result.success(member);
