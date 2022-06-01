@@ -2,6 +2,7 @@ package com.ldzy.yiban.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.ldzy.yiban.model.Force;
+import com.ldzy.yiban.model.Member;
 import com.ldzy.yiban.service.ForceService;
 import com.ldzy.yiban.service.MemberService;
 import com.ldzy.yiban.utils.Result;
@@ -30,29 +31,34 @@ public class ForceController {
     private MemberService memberService;
 
     @PostMapping("/findForce")
-    public PageInfo<Force> findForces(int pageNum){
-        PageInfo<Force> pageInfo =  forceService.findForce(pageNum,10);
-        return pageInfo;
+    public Result<Force> findForce(Force force){
+        return Result.success(forceService.findForce(force));
     }
 
-    @PostMapping("/addForce")
-    public Result<Force> addMember(int memberid, Double forceindex, String forceadddata){
-        forceService.addForce(memberid,forceindex,forceadddata);
-        memberService.upMemberForce(memberid,forceindex);
-        return Result.success();
+    @PostMapping("/insertForce")
+    public Result<Force> insertForce(Force force){
+        Member member = new Member();
+        member.setMemberid(force.getMemberid());
+        member.setForce(force.getForceindex());
+        forceService.insertForce(force);
+        memberService.updateMember(member);
+        return Result.success(forceService.findForce(force));
     }
 
-    @PostMapping("/upForce")
-    public Result<Force> upMember(int memberid, Double forceindex, String forceadddata){
-        forceService.addForce(memberid,forceindex,forceadddata);
-        memberService.upMemberForce(memberid,forceindex);
-        return Result.success();
+    @PostMapping("/updateForce")
+    public Result<Force> updateMember(Force force){
+        forceService.updateForce(force);
+        return Result.success(forceService.findForce(force));
     }
 
     @PostMapping("/deleteForce")
-    public Result<Force> deleteMember(int memberid, Double forceindex, String forceadddata){
-        forceService.addForce(memberid,forceindex,forceadddata);
-        memberService.upMemberForce(memberid,forceindex);
-        return Result.success();
+    public Result<Force> deleteMember(Force force){
+        forceService.deleteForce(force);
+        return Result.success(forceService.findForce(force));
+    }
+
+    @PostMapping("/findForces")
+    public Result<PageInfo<Force>> findForces(Force force ,int pageNum){
+        return Result.success(forceService.findForces(force,pageNum,10));
     }
 }

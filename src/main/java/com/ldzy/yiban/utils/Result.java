@@ -8,88 +8,89 @@ package com.ldzy.yiban.utils;
  */
 
 public class Result<T> {
-    private int code;
+    private String code;
     private String msg;
     private T data;
 
-    public Result() {
+    private Result() {
     }
 
-    public Result(int code,String msg){
+    private Result(String code,String msg){
         this.code = code;
         this.msg = msg;
     }
 
-    public Result(int code, String msg, T data) {
+    private Result(String code, String msg, T data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
     }
 
-    //成功返回结果
-    public static <T> Result<T> success(){
-        return new Result<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
-    }
-    //成功返回结果 data 获取的数据
     public static <T> Result<T> success(T data){
-        return new Result<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(), data);
+        // 操作成功
+        return new Result<T>(ResultCode.SUCCESS.getCode(),  ResultCode.SUCCESS.getMsg(),data);
     }
-    //成功返回结果 data 获取的数据  msg 提示信息
-    public static <T> Result<T> success(T data,String msg){
-        return new Result<T>(ResultCode.SUCCESS.getCode(), msg,data);
+
+    public static <T> Result<T> errorTopUser(T data) {
+        // 用户端错误
+        return new Result<T>(ResultCode.ERROR_TOP_USER.getCode(), ResultCode.ERROR_TOP_USER.getMsg());
     }
-    //失败返回提示信息
-    public static <T> Result<T> failed() {
-        return failed(ResultCode.ERROR.getMsg());
+
+    public static <T> Result<T> noLogin(T data) {
+        // 未登录
+        return new Result<T>(ResultCode.NOT_LOGIN.getCode(), ResultCode.NOT_LOGIN.getMsg(),data);
     }
-    //失败返回结果
-    public static <T> Result<T> failed(ErrorCode errorCode) {
-        return new Result<T>(errorCode.getCode(), errorCode.getMsg());
+
+    public static <T> Result<T> noUserOrPassword(T data) {
+        // 用户或者密码不正确
+        return new Result<T>(ResultCode.NOT_USER_OR_PASSWORD.getCode(), ResultCode.NOT_USER_OR_PASSWORD.getMsg(),data);
     }
-    //失败返回结果 提示信息
-    public static <T> Result<T> failed(String msg) {
-        return new Result<T>(ResultCode.ERROR.getCode(), msg);
+
+    public static <T> Result<T> errorUsername(T data) {
+        // 用户名已存在
+        return new Result<T>(ResultCode.ERROR_USER.getCode(), ResultCode.ERROR_USER.getMsg(),data);
     }
-    //数据库异常
-    public static <T> Result<T> errorDB(T data) {
-        return new Result<T>(ResultCode.ERROR_DB.getCode(), ResultCode.ERROR_DB.getMsg(),data);
-    //服务器内部错误
+
+    public static <T> Result<T> errorNameOrId(T data) {
+        // 用户登录异常
+        return new Result<T>(ResultCode.ERROR_NAME_OR_ID.getCode(), ResultCode.ERROR_NAME_OR_ID.getMsg(),data);
     }
+
+    public static <T> Result<T> errorUsernameLong(T data) {
+        // 用户名长度最多为7
+        return new Result<T>(ResultCode.ERROR_USER_LONG.getCode(), ResultCode.ERROR_USER_LONG.getMsg(),data);
+    }
+
+    public static <T> Result<T> errorInput(T data) {
+        // 校验码输入错误
+        return new Result<T>(ResultCode.ERROR_INPUT.getCode(), ResultCode.ERROR_INPUT.getMsg(),data);
+    }
+
+    public static <T> Result<T> failed(T data) {
+        // 系统执行出错
+        return new Result<T>(ResultCode.ERROR.getCode(), ResultCode.ERROR.getMsg());
+    }
+
     public static <T> Result<T> errorWebYB(T data) {
+        // 服务器内部错误
         return new Result<T>(ResultCode.ERROR_WEB_YB.getCode(), ResultCode.ERROR_WEB_YB.getMsg(),data);
     }
 
-    //未登录
-    public static <T> Result<T> noLogin() {
-        return new Result<T>(ResultCode.NOT_LOGIN.getCode(), ResultCode.NOT_LOGIN.getMsg());
-    }
-    //没用该用户或者密码不对
-    public static <T> Result<T> noUserOrPassword() {
-        return new Result<T>(ResultCode.NOT_USER_OR_PASSWORD.getCode(), ResultCode.NOT_USER_OR_PASSWORD.getMsg());
-    }
-    //数据有重复
-    public static <T> Result<T> errorNameOrId() {
-        return new Result<T>(ResultCode.ERROR_NAME_OR_ID.getCode(), ResultCode.ERROR_NAME_OR_ID.getMsg());
-    }
-    //用户名长度超出
-    public static <T> Result<T> errorUsernameLong() {
-        return new Result<T>(ResultCode.ERROR_USER_LONG.getCode(), ResultCode.ERROR_USER_LONG.getMsg());
-    }
-    //注册用户名已存在
-    public static <T> Result<T> errorUsername() {
-        return new Result<T>(ResultCode.ERROR_USER.getCode(), ResultCode.ERROR_USER.getMsg());
-    }
-    //请求参数格式不对或类型不对或缺失参数项
-    public static <T> Result<T> errorParams() {
-        return new Result<T>(ResultCode.ERROR_PARAMS.getCode(), ResultCode.ERROR_PARAMS.getMsg());
+    public static <T> Result<T> errorDB(T data) {
+        // 数据库异常
+        return new Result<T>(ResultCode.ERROR_DB.getCode(), ResultCode.ERROR_DB.getMsg(),data);
     }
 
+    public static <T> Result<T> errorParams(T data) {
+        // 请求参数格式不对或类型不对或缺失参数项
+        return new Result<T>(ResultCode.ERROR_PARAMS.getCode(), ResultCode.ERROR_PARAMS.getMsg(),data);
+    }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

@@ -45,7 +45,7 @@ spring:
       pool-name: BizvaneHikariCP
   # json数据
   jackson:
-    #日期格式化
+    # 日期格式化  表示月份是大写的 M  表示分钟则是小写的 m  24 小时制的是大写的 H  12 小时制的则是小写的 h。
     date-format: yyyy-MM-dd HH:mm;ss
 
 # 数据分页插件配置

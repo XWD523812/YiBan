@@ -13,15 +13,19 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ForceService {
 
-    default PageInfo<Force> findForce(int pageNum, int pageSize){
+    default Force findForce(Force force){
         return null;
     }
 
-    default void addForce(int memberid, Double forceindex, String forceadddata){}
+    default void insertForce(Force force){}
 
-    default void upForce(int forceid, int memberid, Double forceindex, String forceadddata){}
+    default void updateForce(Force force){}
 
-    default void deleteForce(int forceid){
+    default void deleteForce(Force force){
+    }
+
+    default PageInfo<Force> findForces(Force force ,int pageNum, int pageSize){
+        return null;
     }
 
 }

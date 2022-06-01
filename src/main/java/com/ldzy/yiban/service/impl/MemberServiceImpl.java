@@ -22,46 +22,35 @@ public class MemberServiceImpl implements MemberService {
     public MemberMapper memberMapper;
 
     @Override
-    public Member findMemberId(int memberid,String membername) {
-        return memberMapper.findMemberId(memberid,membername);
+    public Member findMember(Member member) {
+        return memberMapper.findMember(member);
     }
 
     @Override
-    public PageInfo<Member> findMember(int pageNum, int pageSize, String bumen) {
+    public void updateMember(Member member) {
+        memberMapper.updateMember(member);
+    }
+
+    @Override
+    public void insertMember(Member member) {
+        memberMapper.insertMember(member);
+    }
+
+    @Override
+    public void deleteMember(Member member) {
+        memberMapper.deleteMember(member);
+    }
+
+    @Override
+    public PageInfo<Member> findMembers(Member member ,int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        List<Member> lists=memberMapper.findMember(bumen);
+        List<Member> lists=memberMapper.findMembers(member);
         return new PageInfo<Member>(lists);
     }
 
     @Override
-    public PageInfo<Member> findTopMember(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
-        List<Member> lists = memberMapper.findTopMember();
-        return new PageInfo<Member>(lists);
+    public Member findMemberForce(Member member) {
+        return memberMapper.findMemberForce(member);
     }
 
-    @Override
-    public Member findMemberForce(int memberid) {
-        return memberMapper.findMemberForce(memberid);
-    }
-
-    @Override
-    public void upAllMember(int memberid, String membername, String password, String bumen, Double force, Integer qx) {
-        memberMapper.upAllMember(memberid,membername,password,bumen,force,qx);
-    }
-
-    @Override
-    public void upMemberForce(int memberid, Double force) {
-        memberMapper.upMemberForce(memberid, force);
-    }
-
-    @Override
-    public void addMember(int memberid, String membername, String bumen) {
-        memberMapper.addMember(memberid, membername, bumen);
-    }
-
-    @Override
-    public void deleteMember(int memberid) {
-        memberMapper.deleteMember(memberid);
-    }
 }

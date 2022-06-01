@@ -23,24 +23,32 @@ public class ForceServiceImpl implements ForceService {
     private ForceMapper forceMapper;
 
     @Override
-    public PageInfo<Force> findForce(int pageNum, int pageSize) {
+    public Force findForce(Force force) {
+        return forceMapper.findForce(force);
+    }
+
+    @Override
+    public void updateForce(Force force) {
+        forceMapper.updateForce(force);
+    }
+
+    @Override
+    public void insertForce(Force force) {
+        forceMapper.insertForce(force);
+    }
+
+
+    @Override
+    public void deleteForce(Force force) {
+        forceMapper.deleteForce(force);
+    }
+
+    @Override
+    public PageInfo<Force> findForces(Force force ,int pageNum ,int pageSize) {
+        Integer memberid = force.getMemberid();
         PageHelper.startPage(pageNum,pageSize);
-        List<Force> lists=forceMapper.findForce();
+        List<Force> lists=forceMapper.findForces(memberid);
         return new PageInfo<Force>(lists);
     }
 
-    @Override
-    public void addForce(int memberid, Double forceindex, String forceadddata) {
-        forceMapper.addForce(memberid,forceindex,forceadddata);
-    }
-
-    @Override
-    public void upForce(int forceid, int memberid, Double forceindex, String forceadddata) {
-        forceMapper.upForce(forceid, memberid, forceindex, forceadddata);
-    }
-
-    @Override
-    public void deleteForce(int forceid) {
-        forceMapper.deleteForce(forceid);
-    }
 }

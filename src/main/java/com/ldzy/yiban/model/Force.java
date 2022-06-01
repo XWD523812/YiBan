@@ -13,11 +13,12 @@ import java.util.Date;
 
 @Component
 public class Force {
-    private int forceid;
-    private int memberid;
-    private Double forceindex;
+    private Integer forceid;
+    private Integer memberid;
+    private Integer forceindex;
     private String forceadddata;
     private Date forcedate;
+    private Integer forcestate;
 
     public Force() {
     }
@@ -26,34 +27,35 @@ public class Force {
     public String toString() {
         return "Force{" +
                 "forceid=" + forceid +
-                ", memberid='" + memberid + '\'' +
+                ", memberid=" + memberid +
                 ", forceindex=" + forceindex +
                 ", forceadddata='" + forceadddata + '\'' +
                 ", forcedate=" + forcedate +
+                ", forcestate=" + forcestate +
                 '}';
     }
 
-    public int getForceid() {
+    public Integer getForceid() {
         return forceid;
     }
 
-    public void setForceid(int forceid) {
+    public void setForceid(Integer forceid) {
         this.forceid = forceid;
     }
 
-    public int getMemberid() {
+    public Integer getMemberid() {
         return memberid;
     }
 
-    public void setMemberid(int memberid) {
+    public void setMemberid(Integer memberid) {
         this.memberid = memberid;
     }
 
-    public Double getForceindex() {
+    public Integer getForceindex() {
         return forceindex;
     }
 
-    public void setForceindex(Double forceindex) {
+    public void setForceindex(Integer forceindex) {
         this.forceindex = forceindex;
     }
 
@@ -73,4 +75,11 @@ public class Force {
         this.forcedate = forcedate;
     }
 
+    public Integer getForcestate() {
+        return forcestate;
+    }
+
+    public void setForcestate(Integer forcestate) {
+        this.forcestate = forcestate;
+    }
 }

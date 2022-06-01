@@ -1,7 +1,6 @@
 package com.ldzy.yiban.model;
 
 import org.springframework.stereotype.Component;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,12 +8,14 @@ import java.util.List;
 public class Member implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private int memberid; // 成员编号（主键）
+	private Integer memberid; // 成员编号（主键）
 	private String membername; // 姓名
 	private String password; // 密码
 	private String bumen; // 部门
-	private Double force; // 总战力
-	private int qx; // 权限
+	private Integer force; // 总战力
+	private String picture;// 头像
+	private String introduce; //个人简介
+	private Integer qx; // 权限
 
 	private List<Force> forces;
 
@@ -29,15 +30,18 @@ public class Member implements Serializable {
 				", password='" + password + '\'' +
 				", bumen='" + bumen + '\'' +
 				", force=" + force +
+				", picture='" + picture + '\'' +
+				", introduce='" + introduce + '\'' +
 				", qx=" + qx +
+				", forces=" + forces +
 				'}';
 	}
 
-	public int getMemberid() {
+	public Integer getMemberid() {
 		return memberid;
 	}
 
-	public void setMemberid(int memberid) {
+	public void setMemberid(Integer memberid) {
 		this.memberid = memberid;
 	}
 
@@ -65,19 +69,35 @@ public class Member implements Serializable {
 		this.bumen = bumen;
 	}
 
-	public Double getForce() {
+	public Integer getForce() {
 		return force;
 	}
 
-	public void setForce(Double force) {
+	public void setForce(Integer force) {
 		this.force = force;
 	}
 
-	public int getQx() {
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
+	public String getIntroduce() {
+		return introduce;
+	}
+
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
+
+	public Integer getQx() {
 		return qx;
 	}
 
-	public void setQx(int qx) {
+	public void setQx(Integer qx) {
 		this.qx = qx;
 	}
 

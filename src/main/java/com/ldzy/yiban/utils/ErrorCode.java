@@ -7,6 +7,6 @@ package com.ldzy.yiban.utils;
  * @version:1.0
  */
 public interface ErrorCode {
-        int getCode();
+        String getCode();
         String getMsg();
 }

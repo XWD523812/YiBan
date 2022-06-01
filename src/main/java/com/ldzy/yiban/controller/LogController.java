@@ -28,15 +28,15 @@ public class LogController {
     public MemberService memberService;
 
     @PostMapping("/login")
-    public Result<Member> login(HttpSession session ,int memberid, String membername, String password)  {
+    public Result<Member> login(HttpSession session ,Member memberLogin)  {
         //通过id或姓名来登录
-        Member member = memberService.findMemberId(memberid,membername);
-        if (member.getPassword().equals(password)) {
+        Member member = memberService.findMember(memberLogin);
+        if (member.getPassword().equals(memberLogin.getPassword())) {
             //新建一个session用于登录控制
             session.setAttribute("member",member);
             return Result.success(member);
         }
-        return Result.noUserOrPassword();
+        return Result.noUserOrPassword(memberLogin);
     }
 
     @PostMapping("/logout")

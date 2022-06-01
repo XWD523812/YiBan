@@ -3,6 +3,7 @@ package com.ldzy.yiban.controller;
 import com.github.pagehelper.PageInfo;
 import com.ldzy.yiban.model.Member;
 import com.ldzy.yiban.service.MemberService;
+import com.ldzy.yiban.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,50 +21,39 @@ public class MemberController {
     @Autowired
     public MemberService memberService;
 
-    @PostMapping("/findID")
-    public Member findMemberId(int memberid,String membername){
-        Member member = memberService.findMemberId(memberid,membername);
-        return member;
-    }
-
     @PostMapping("/findMember")
-    public PageInfo<Member> findMember(@RequestParam(defaultValue = "1") Integer pageNum, String bumen){
-        PageInfo<Member> queryResult = memberService.findMember(pageNum,10,bumen); // pageNum:当前页码数，第一次进来时默认为1（首页）
-        return queryResult;
+    public Result<Member> findMember(Member member){
+        return Result.success(memberService.findMember(member));
     }
 
-    @PostMapping("/findTopMember")
-    public PageInfo<Member> findTopMember(@RequestParam(defaultValue = "1") Integer pageNum){
-        PageInfo<Member> queryResult = memberService.findTopMember(pageNum,10);// pageNum:当前页码数，第一次进来时默认为1（首页）
-        return queryResult;
+    @PostMapping("/updateMember")
+    public Result<Member> updateMember(Member member){
+        memberService.updateMember(member);
+        return Result.success(memberService.findMember(member));
     }
 
-    @PostMapping("/findMemberForce")
-    public Member findMemberForce(int memberid){
-        Member member = memberService.findMemberForce(memberid);
-        return member;
-    }
-
-    @PostMapping("/upMemberForce")
-    public Member upMember(int memberid,String membername,Double force){
-        memberService.upMemberForce(memberid,force);
-        return memberService.findMemberId(memberid,membername);
-    }
-
-    @PostMapping("/upAllMember")
-    public Member upAllMember(int memberid, String membername, String password, String bumen,@RequestParam(defaultValue = "0") Double force, Integer qx){
-        memberService.upAllMember(memberid,membername,password,bumen,force,qx);
-        return memberService.findMemberId(memberid,membername);
-    }
-
-    @PostMapping("/addMember")
-    public Member addMember(int memberid,String membername,String bumen) throws Exception{
-        memberService.addMember(memberid,membername,bumen);
-        return memberService.findMemberId(memberid,membername);
+    @PostMapping("/insertMember")
+    public Result<Member> insertMember(Member member){
+        memberService.insertMember(member);
+        return Result.success(memberService.findMember(member));
     }
 
     @PostMapping("/deleteMember")
-    public void deleteMember(int memberid){
-        memberService.deleteMember(memberid);
+    public Result<Member> deleteMember( Member member){
+        memberService.deleteMember(member);
+        return Result.success(member);
     }
+
+    @PostMapping("/findMembers")
+    public Result<PageInfo<Member>> findMembers(Member member ,@RequestParam(defaultValue = "1") Integer pageNum){
+        PageInfo<Member> queryResult = memberService.findMembers(member,pageNum,10); // pageNum:当前页码数，第一次进来时默认为1（首页）
+        return Result.success(queryResult);
+    }
+
+    @PostMapping("/findMemberForce")
+    public Result<Member> findMemberForce( Member memberid){
+        return Result.success(memberService.findMemberForce(memberid));
+
+    }
+
 }

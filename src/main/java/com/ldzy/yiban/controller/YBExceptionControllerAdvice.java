@@ -37,19 +37,19 @@ public class YBExceptionControllerAdvice {
     @ExceptionHandler(value = DuplicateKeyException.class)
     public Result<String> duplicateKeyExceptionHandle(Exception e) {
         System.out.println("数据库异常。唯一键值不能重复！"+e);
-        return Result.errorUsername();
+        return Result.errorUsername("用户已存在！"+e);
     }
 
     @ExceptionHandler(value = LoginException.class)
     public Result<String> loginExceptionHandle(Exception e) {
         System.out.println("访问失败。未登录！"+e);
-        return Result.noLogin();
+        return Result.noLogin("访问失败。未登录！"+e);
     }
 
     @ExceptionHandler(value = MysqlDataTruncation.class)
     public Result<String>zhuCeExceptionHandle(Exception e) {
         System.out.println("数据库异常。数据长度超出！"+e);
-        return Result.errorUsernameLong();
+        return Result.errorUsernameLong("用户名长度最多为七个字！"+e);
     }
 
 }
