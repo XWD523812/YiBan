@@ -51,4 +51,10 @@ public class ForceServiceImpl implements ForceService {
         return new PageInfo<Force>(lists);
     }
 
+    @Override
+    public PageInfo<Force> findForceState(Force force, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Force> lists=forceMapper.findForceState(force);
+        return new PageInfo<Force>(lists);
+    }
 }

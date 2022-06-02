@@ -28,4 +28,8 @@ public interface ForceService {
         return null;
     }
 
+    default PageInfo<Force> findForceState(Force force ,int pageNum, int pageSize){
+        return null;
+    }
+
 }

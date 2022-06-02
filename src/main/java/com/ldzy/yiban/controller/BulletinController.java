@@ -1,5 +1,6 @@
 package com.ldzy.yiban.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.ldzy.yiban.model.Bulletin;
 import com.ldzy.yiban.service.BulletinService;
 import com.ldzy.yiban.utils.Result;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -25,7 +27,7 @@ public class BulletinController {
 
     @PostMapping("/findBulletin")
     public Result<Bulletin> findBulletin(Bulletin bulletin){
-        return Result.success(bulletinService.findBulletinPictures(bulletin));
+        return Result.success(bulletinService.findBulletin(bulletin));
     }
 
     @PostMapping("/insertBulletin")
@@ -49,5 +51,10 @@ public class BulletinController {
     @PostMapping("/findBulletinPictures")
     public Result<Bulletin> findBulletinPictures(Bulletin bulletin){
         return Result.success(bulletinService.findBulletinPictures(bulletin));
+    }
+
+    @PostMapping("/findBulletinState")
+    public Result<PageInfo<Bulletin>> findBulletinState(Bulletin bulletin ,@RequestParam(defaultValue = "1") int pageNum){
+        return Result.success(bulletinService.findBulletinState(bulletin,pageNum,10));
     }
 }

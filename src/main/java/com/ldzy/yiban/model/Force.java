@@ -13,12 +13,12 @@ import java.util.Date;
 
 @Component
 public class Force {
-    private Integer forceid;
-    private Integer memberid;
-    private Integer forceindex;
-    private String forceadddata;
-    private Date forcedate;
-    private Integer forcestate;
+    private Integer forceid; // 战力日志编号
+    private Integer memberid; // 所属成员编号
+    private Integer forceindex; // 总战力值
+    private String forceadddata; // 战力日志描述
+    private Date forcedate; // 战力最新更改时间
+    private Integer forcestate; // 战力状态0？1
 
     public Force() {
     }

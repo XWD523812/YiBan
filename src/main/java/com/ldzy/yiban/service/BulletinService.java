@@ -1,8 +1,11 @@
 package com.ldzy.yiban.service;
 
+import com.github.pagehelper.PageInfo;
 import com.ldzy.yiban.model.Bulletin;
 import com.ldzy.yiban.model.Picture;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Auction:XWD
@@ -25,6 +28,10 @@ public interface BulletinService {
     }
 
     default Bulletin findBulletinPictures(Bulletin bulletin){
+        return null;
+    }
+
+    default PageInfo<Bulletin> findBulletinState(Bulletin bulletin ,int pageNum, int pageSize){
         return null;
     }
 }

@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="version" content="For Json viewer">
+    <title>ApiPost接口文档</title>
+    <link href="https://img.cdn.apipost.cn/v6/docs/img/doc_favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="https://img.cdn.apipost.cn/docs/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="https://img.cdn.apipost.cn/docs/css/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://img.cdn.apipost.cn/docs/css/github.css">
+    <script type="text/javascript"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/docs/js/jquery-3.4.1.min.js"></script>
+    <script src="https://img.cdn.apipost.cn/docs/js/colResizable-1.6.min.js"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/docs/js/marked.min.js"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/docs/js/template-web.js"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/docs/js/highlight.js"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/docs/js/clipboard.min.js"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/statics/libs/crypto-js/crypto-js.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/docs/js/json5.min.js"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/docs/js/enc.min.js"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/docs/json-viewer/json-viewer.min.js"></script>
+    <script src="https://img.cdn.apipost.cn/docs/js/indent.js"></script>
+
+    <script>
+        Date.prototype.format = function (fmt) {
+            var o = {
+                "M+": this.getMonth() + 1,                 //月份
+                "d+": this.getDate(),                    //日
+                "h+": this.getHours(),                   //小时
+                "m+": this.getMinutes(),                 //分
+                "s+": this.getSeconds(),                 //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds()             //毫秒
+            };
+            if (/(y+)/.test(fmt)) {
+                fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            }
+            for (var k in o) {
+                if (new RegExp("(" + k + ")").test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                }
+            }
+            return fmt;
+        }
+    </script>
+    <style type="text/css">
+        .preview-markdown table td {
+            position: relative;
+        }
+
+        .indent-fold {
+            border: 0;
+            background: transparent;
+            position: absolute;
+            left: -25px;
+            top: 10px;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            text-align: center;
+            width: 15px;
+            height: 15px;
+            padding: 0;
+        }
+
+        .indent-fold img {
+            position: static !important;
+            transform: translateY(0);
+        }
+
+        .indent-fold.right img {
+            transform: rotate(0);
+        }
+
+        .indent-fold.down img {
+            transform: rotate(-90deg);
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://img.cdn.apipost.cn/docs/css/docs.css">
+    <link rel="stylesheet" href="https://img.cdn.apipost.cn/docs/css/v6.css">
+    <link rel="stylesheet" href="https://img.cdn.apipost.cn/docs/css/jsonview.css">
+    <style>
+       .body .box{
+            height: calc(100vh - 60px);
+        }
+
+        .JCLRgrip .JColResizer {
+            cursor: col-resize;
+        }
+
+        table tr td,
+        th {
+            text-indent: 8px;
+        }
+
+        .JColResizer>tbody>tr>td,
+        .JColResizer>tbody>tr>th {
+            overflow: visible !important;
+        }
+    </style>
+</head>
+
+<body>
+<!-- <body> -->
+<div class="body">
+    <div class="doc-head">
+        <div class="left">
+            <a href="https://www.apipost.cn/" target="_blank" title="ApiPost接口与文档管理系统">
+                <img src="https://img.cdn.apipost.cn/v6/docs/img/logov6.svg" alt="ApiPost接口与文档管理系统">
+            </a>
+        </div>
+        <div class="container">
+
+        </div>
+    </div>
+    <div class="box">
+        <div class="box-first" style="display: flex; flex-direction: column;justify-content: flex-end;">
+            <div class="sreachInput">
+                <img src="https://img.cdn.apipost.cn/v6/docs/img/search.svg" alt="">
+                <input type="text" class="search" placeholder="搜索目录/接口">
+            </div>
+            <div class="title">
+
+            </div>
+            <div class="target top" data-target_id="001">
+                <div class="globals_select"></div>
+                全局参数
+            </div>
+            <div class="new">
+
+            </div>
+            <!-- <a href="https://www.toutiao.com/i6960487351701275149/" id = "advertise" target="_blank" style="display: inline-block; width: 300px;height: 70px;background: url('https://img.cdn.apipost.cn/cdn/images/a-long-letter.svg?0424') no-repeat left"></a> -->
+            <div class="bar"></div>
+            <script type="text/html" id="template-target-sidebar-list-tpl">
+                {{each list value}}
+                <div>
+                    <div class="target {{value.target_type == 'folder' ? 'folder':'api'}}"
+                         data-type="{{value.target_type}}"
+                         data-target_id="{{value.local_target_id}}">
+                        {{if value.target_type == 'folder'}}
+                        <span>
+                       <span class="control">
+                           {{if value.children}}
+                           <div class="folder_select">
+
+                           </div>
+                           {{/if}}
+                        </span>
+                       <span>
+                         <div class="img">
+
+                         </div>
+                         {{value.name}}
+                        </span>
+                       </span>
+                        {{else}}
+                        <span>
+                         <em class="{{((value.target_type == 'doc') || (value.target_type == 'example' && value.is_doc == 1)) ? 'DOC' : value.target_type != 'example' ? value.method : value.method}}">{{(value.target_type == 'doc' || (value.target_type == 'example' && value.is_doc == '1')) ? '文本' :  value.method == 'OPTIONS' ? 'OPT' : value.method == 'DELETE' ? 'DEL' : value.method == 'UNLINK' ? 'UNLNK' : value.method == 'UNLOCK' ? 'UNLCK' : value.method == 'PROPFIND' ? 'PROP' : value.method}}</em>
+                       <span>{{value.name}}</span>
+                       </span>
+                        <span></span>
+                        {{/if}}
+                    </div>
+                    {{if value.children!=null}}
+                    {{each value.children data}}
+                    {{set a=data["index"]=3}}
+                    {{include 'list1' data}}
+                    {{/each}}
+                    {{/if}}
+                </div>
+                {{/each}}
+            </script>
+            <script type="text/html" id="list1">
+                <div>
+                    <div class="target {{target_type == 'folder' ? 'folder':'api'}}" data-type="{{target_type}}"
+                         data-target_id="{{local_target_id}}"
+                         style="padding-left:{{index * 15}}px">
+                        {{if target_type == 'folder'}}
+                        <span>
+                           <span class="control">
+                              {{if children}}
+                              <div class="folder_select">
+
+                              </div>
+                              {{/if}}
+                            </span>
+                        <span>
+                           <div class="img">
+
+                         </div>
+                          {{name}}
+                        </span>
+                       </span>
+                        {{else}}
+                        <span>
+                          <em class="{{((target_type == 'doc') || (target_type == 'example' && is_doc == 1)) ? 'DOC' : target_type != 'example' ? method : method}}">{{(target_type == 'doc' || (target_type == 'example' && is_doc == '1')) ? '文本' :  method == 'OPTIONS' ? 'OPT' : method == 'DELETE' ? 'DEL' : method == 'UNLINK' ? 'UNLNK' : method == 'UNLOCK' ? 'UNLCK' : method == 'PROPFIND' ? 'PROP' : method}}</em>
+                          <span>{{name}}</span>
+                          </span>
+                        <span></span>
+                        {{/if}}
+                    </div>
+                    {{if children!=null}}
+                    {{each children data}}
+                    {{if index}}
+                    {{set b=data.index=index+1}}
+                    {{else}}
+                    {{set c=data["index"] = 3}}
+                    {{/if}}
+                    {{include 'list1' data}}
+                    {{/each}}
+                    {{/if}}
+                </div>
+            </script>
+        </div>
+        <div class="box-third">
+            <div class=" preview-markdown">
+
+            </div>
+            <div style="width: 100%;">
+
+            </div>
+            <div class="box-nav" style="background: #fff;">
+                <ul class="api template-nav-menu">
+                    <script type="text/html" id="template-nav-menu-tpl">
+                        <!--                            {{if target_type == "api" || target_type == "folder" || (target_type == "example" && is_doc == 0) }}-->
+                        {{if request.description}}
+                        <li class="cur nav-btn" data-id="0" style="display: block"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                接口说明</a></li>
+                        <li class="nav-btn" data-id="1"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                基本信息</a></li>
+                        {{else}}
+                        <li class="nav-btn" data-id="0" style="display: none"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                接口说明</a></li>
+                        <li class="cur nav-btn" data-id="1"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                基本信息</a></li>
+                        {{/if}}
+                        <!--                            {{/if}}-->
+                        {{if request.header.parameter.length > 0 || request.query.parameter.length > 0 ||
+                        request.resful.parameter.length > 0 || request.body.parameter.length>0 || request.body.raw !=''}}
+                        <li class="nav-btn" data-id="2" style="display: block"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                请求参数</a></li>
+                        {{else}}
+                        <li class="nav-btn" data-id="2" style="display: none"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                请求参数</a></li>
+                        {{/if}}
+                        <ul>
+                            {{if request.header.parameter.length > 0}}
+                            <li class="nav-btn" data-id="3" style="display: block"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    header参数及说明</a></li>
+                            {{else}}
+                            <li class="nav-btn" data-id="3" style="display: none"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    header参数及说明</a></li>
+                            {{/if}}
+                            {{if request.query.parameter.length > 0}}
+                            <li class="nav-btn" data-id="4" style="display: block"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    query参数及说明</a></li>
+                            {{else}}
+                            <li class="nav-btn" data-id="4" style="display: none"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    query参数及说明</a></li>
+                            {{/if}}
+                            {{if request.resful.parameter.length > 0}}
+                            <li class="nav-btn" data-id="5" style="display: block"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    路径参数及说明</a></li>
+                            {{else}}
+                            <li class="nav-btn" data-id="5" style="display: none"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    路径参数及说明</a></li>
+                            {{/if}}
+
+                            {{if request?.auth?.type && request?.auth?.type != 'noauth'}}
+                            <li class="nav-btn" data-id="6" style="display: block"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    认证及说明</a></li>
+                            {{else}}
+                            <li class="nav-btn" data-id="6" style="display: none"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    认证及说明</a></li>
+                            {{/if}}
+                            {{if request.body.parameter.length>0 || request.body.raw !='' }}
+                            <li class="nav-btn" data-id="7" style="display: block"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    body参数及说明</a></li>
+                            {{else}}
+                            <li class="nav-btn" data-id="7" style="display: none"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    body参数及说明</a></li>
+                            {{/if}}
+                            <!--                        <li class="nav-btn" data-id="6"><a href="javascript:;">预执行脚本</a></li>-->
+                            <!--                        <li class="nav-btn" data-id="7"><a href="javascript:;">后执行脚本</a></li>-->
+
+                        </ul>
+                        {{if response.success.raw || response.success.parameter.length > 0 || response.error.raw ||
+                        response.error.parameter.length > 0}}
+                        <li class="nav-btn" data-id="8" style="display: block"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                响应示例</a></li>
+                        {{else}}
+                        <li class="nav-btn" data-id="8" style="display:none"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                响应示例</a></li>
+                        <!-- <ul>-->
+                        <!--                            {{if response.success.raw || response.success.parameter.length > 0}}-->
+                        <!--                            <li class="nav-btn" data-id="9"><a href="javascript:;">成功响应示例</a></li>-->
+                        <!--                            {{/if}}-->
+                        <!---->
+                        <!--                            {{if response.error.raw || response.error.parameter.length > 0}}-->
+                        <!--                            <li class="nav-btn" data-id="10"><a href="javascript:;">失败响应示例</a></li>-->
+                        <!--                            {{/if}}-->
+                        <!--                        </ul> -->
+                        {{/if}}
+                    </script>
+                </ul>
+
+                <ul class="folder">
+                    <li class="cur nav-folder-btn" data-id="0"><a href="javascript:;">
+                            <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                            目录说明</a></li>
+                    <li class="nav-folder-btn" data-id="1"><a href="javascript:;">
+                            <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                            公共参数</a></li>
+                    <ul>
+                        <li class="nav-folder-btn" data-id="2"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                header参数及说明</a></li>
+                        <li class="nav-folder-btn" data-id="3"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                query参数及说明</a></li>
+                        <li class="nav-folder-btn" data-id="4"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                body参数及说明</a></li>
+                        <li class="nav-folder-btn" data-id="5"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                认证及说明</a></li>
+                        <!-- <li class="nav-folder-btn" data-id="4"><a href="javascript:;">预执行脚本</a></li>-->
+                        <!-- <li class="nav-folder-btn" data-id="5"><a href="javascript:;">后执行脚本</a></li>-->
+                    </ul>
+                </ul>
+
+            </div>
+            <script type="text/html" id="template-example-doc-tpl">
+                <h2 class="top" style="display: block">
+                    <div style="display: flex;align-items: center;">
+                        <span>{{name}}</span>
+                        {{if target_type != 'folder'}}
+                        <!-- <button title="复制当前文档/接口数据到剪贴板" class="CopyCurrentData" data-clipboard-action="copy" data-clipboard-text="" data-target_id="{{local_target_id}}">
+                          <img src="https://img.cdn.apipost.cn/v6/docs/img/copy.svg" alt="" style="margin-right:2px">
+                          复制接口
+                          <a  style="margin-left:2px" href="https://wiki.apipost.cn/document/00091641-1e36-490d-9caf-3e47cd38bcde/0b622ce8-68c0-4a00-88ba-287bdae336ad" target="_blank" rel="noopener noreferrer">
+                            <img style="cursor: pointer;" src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg"  alt="">
+                          </a>
+                        </button> -->
+                        <!-- <button class="opneApis" data-target_id="{{local_target_id}}">
+                          <img src="https://img.cdn.apipost.cn/v6/docs/img/open.svg" alt="">
+                          在工作台打开
+                        </button> -->
+                        <!-- <a href="https://wiki.apipost.cn/document/00091641-1e36-490d-9caf-3e47cd38bcde/0b622ce8-68c0-4a00-88ba-287bdae336ad" title="什么是复制接口？" target="_blank"><i class="fa fa-question-circle-o" aria-hidden="true"></i></a> -->
+                        {{/if}}
+                    </div>
+                    <span class="metadata">创建人：{{create_users.create_user}} &nbsp;&nbsp;&nbsp;&nbsp; 最后更新：{{create_users.update_user}} &nbsp;&nbsp;&nbsp;&nbsp;更新时间：{{@dateFormat(update_dtime * 1000,'yyyy-MM-dd hh:mm:ss')}}</span>
+                </h2>
+                {{if target_type == 'folder'}}
+                <h3 class="title" style="{{request.description ? 'visibility: visible;':'visibility:hidden;height:0;margin:0;'}}" ><a href="javascript:;" class="maodian">
+                        <img src="https://img.cdn.apipost.cn/v6/docs/img/book.svg" alt="">
+                    </a> 目录说明 <i class="fa fa-angle-down"></i></h3>
+                {{if request.description}}
+                <div class="editor-preview desc markdown-section">
+                    {{@marked(request.description)}}
+                </div>
+                {{/if}}
+                {{else}}
+                <h3 class="title" style="{{request.description ? 'visibility: visible;':'visibility:hidden;height:0;margin:0;'}}" ><a href="javascript:;" class="maodian">
+                        <img src="https://img.cdn.apipost.cn/v6/docs/img/book.svg" alt="">
+                    </a> 接口说明 <i class="fa fa-angle-down"></i></h3>
+                {{if request.description}}
+                <div class="editor-preview desc markdown-section">
+                    {{@marked(request.description)}}
+                </div>
+                {{/if}}
+                {{/if}}
+                {{if (target_type == 'example' && is_doc == '0') || target_type == 'api'}}
+                <h3 class="title"><a href="javascript:;" class="maodian">
+                        <img src="https://img.cdn.apipost.cn/v6/docs/img/info.svg" alt="">
+                    </a> 基本信息 <i class="fa fa-angle-down"></i></h3>
+                <ul class="editor-preview-info">
+                    <li><strong>接口状态：</strong> <code class="span" style="color: {{markColor}};">{{markName}}</code></li>
+                    <li><strong>接口URL：</strong> <code class="span">{{request.url ? request.url : 'url为空...'}}</code>
+                    </li>
+                    <li><strong>请求方式：</strong> <code class="span">{{method}}</code></li>
+                    <li><strong>Content-Type：</strong> <code class="span">{{request.body.mode}}</code></li>
+                </ul>
+
+                <h3 class="title" style="{{request.header.parameter.length > 0 || request.query.parameter.length > 0 || request.resful.parameter.length > 0 || request.body.parameter.length>0 ||request.body.raw !='' || (request?.auth?.type && request?.auth?.type != 'noauth') ? 'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian">
+                        <img src="https://img.cdn.apipost.cn/v6/docs/img/globals.svg" alt="">
+                    </a> 请求参数 <i class="fa fa-angle-down"></i></h3>
+                {{if request.header.parameter.length > 0 || request.query.parameter.length > 0 || request.resful.parameter.length > 0 || request.body.parameter.length>0 ||request.body.raw !='' || (request?.auth?.type && request?.auth?.type != 'noauth')}}
+                <div class="markdown-request">
+                    <h4 class="title" style="{{request.header.parameter.length > 0? 'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian"></a> Header参数及说明</h4>
+                    {{if request.header.parameter.length > 0}}
+                    <div>
+                        <table>
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <th>参数类型</th>
+                                <th>是否必填</th>
+                                <th>参数描述</th>
+                            </tr>
+                            {{each request.header.parameter item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>
+                                    {{if item.key_var}}
+                                    {{item.key_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.key}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.key}}
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{if item.value_var}}
+                                    {{item.value_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.value}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.value == '' ? '-' : item.value }}
+                                    {{/if}}
+                                </td>
+                                <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td>
+                                <td>{{item.not_null == "1" ? '是' : '否'}}</td>
+                                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+                    </div>
+                    {{/if}}
+
+                    <h4 class="title" style="{{request.query.parameter.length > 0 ? 'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian"></a> Query参数及说明</h4>
+                    {{if request.query.parameter.length > 0}}
+                    <div>
+                        <table>
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <th>参数类型</th>
+                                <th>是否必填</th>
+                                <th>参数描述</th>
+                            </tr>
+
+                            {{each request.query.parameter item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>
+                                    {{if item.key_var}}
+                                    {{item.key_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.key}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.key}}
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{if item.value_var}}
+                                    {{item.value_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.value}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.value == '' ? '-' : item.value }}
+                                    {{/if}}
+                                </td>
+                                <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td>
+                                <td>{{item.not_null == "1" ? '是' : '否'}}</td>
+                                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+                    </div>
+                    {{/if}}
+
+                    <h4 class="title" style="{{request.resful.parameter.length ? 'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian"></a> 路径参数及说明</h4>
+                    {{if request.resful.parameter.length > 0}}
+                    <div>
+                        <table>
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <!--
+                                <th>参数类型</th>
+                                <th>是否必填</th>
+                                -->
+                                <th>参数描述</th>
+                            </tr>
+
+                            {{each request.resful.parameter item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>
+                                    {{if item.key_var}}
+                                    {{item.key_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.key}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.key}}
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{if item.value_var}}
+                                    {{item.value_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.value}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.value == '' ? '-' : item.value }}
+                                    {{/if}}
+                                </td>
+                                <!--
+                                <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td>
+                                <td>{{item.not_null == "1" ? '是' : '否'}}</td>
+                                -->
+                                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+                    </div>
+                    {{/if}}
+
+                    <h4 class="title" style="{{ request?.auth.type && request?.auth.type != 'noauth' ? 'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian"></a> 认证及说明</h4>
+                    {{if request?.auth.type && request?.auth.type != 'noauth'}}
+                    <div>
+                        {{if request?.auth?.type == 'kv'}}
+                        <table class="auth">
+                            <tr>
+                                <td>认证类型：私密键值对</td>
+                                <td> 键： {{request?.auth?.kv?.key}}</td>
+                                <td> 值：{{request?.auth?.kv?.value}}</td>
+                            </tr>
+                        </table>
+                        {{/if}}
+                        {{if request.auth.type == 'basic'}}
+                        <table class="auth">
+                            <tr>
+                                <td>认证类型：Basic auth认证</td>
+                                <td>用户名： {{request?.auth?.basic?.username}}</td>
+                                <td>密码： {{request?.auth?.basic?.password}}</td>
+                            </tr>
+                        </table>
+                        {{/if}}
+                        {{if request?.auth?.type == 'bearer'}}
+                        <table class="auth">
+                            <tr>
+                                <td>认证类型：Bearer auth认证</td>
+                                <td>Token：{{request?.auth?.bearer?.key}}</td>
+                            </tr>
+                        </table>
+                        {{/if}}
+                    </div>
+                    {{/if}}
+
+                    <h4 class="title" style="{{request.body.parameter.length > 0 || request.body.raw !='' ? 'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian"></a> body参数及说明</h4>
+                    {{if request.body.parameter.length>0 ||request.body.raw !='' }}
+                    {{if request.body.mode == 'form-data' || request.body.mode == 'multipart/form-data' ||
+                    request.body.mode =='application/x-www-form-urlencoded' || request.body.mode=="urlencoded"}}
+                    <div>
+                        <table>
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <th>参数类型</th>
+                                <th>是否必填</th>
+                                <th>参数描述</th>
+                            </tr>
+                            {{if request.body.parameter.length > 0}}
+                            {{each request.body.parameter item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>
+                                    {{if item.key_var}}
+                                    {{item.key_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.key}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.key}}
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{if item.value_var}}
+                                    {{item.value_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.value}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.value == '' ? '-' : item.value }}
+                                    {{/if}}
+                                </td>
+                                <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td>
+                                <td>{{item.not_null == "1" ? '是' : '否'}}</td>
+                                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                            {{else}}
+                            <tr>
+                                <td colspan="5" style="text-align:center">暂无数据</td>
+                            </tr>
+                            {{/if}}
+                        </table>
+                    </div>
+                    {{else}}
+                    <div class="editor-preview">
+                        <input type="hidden" id="request_body_raw_editor_input" value="{{request.body.raw}}">
+                        <pre id="request_body_raw_editor_json"><code class="hljs json">{{request.body.raw}}</code></pre>
+
+                        <!-- <pre><code class="hljs json">{{request.body.raw}}</code></pre> -->
+                    </div>
+                    {{if request.body.raw_para.length > 0}}
+                    <h4><a href="javascript:;" class="maodian"></a> 字段描述</h4>
+                    <table>
+                        <tr>
+                            <th>参数名</th>
+                            <th>示例值</th>
+                            <th>参数类型</th>
+                            <!-- <th>是否必填</th> -->
+                            <th>参数描述</th>
+                        </tr>
+                        {{each request.body.raw_para item}}
+                        {{if item.key}}
+                        <tr>
+                            <td>{{@keyFormat(item.key)}}</td>
+                            <td>{{item.value == '' ? '-' : item.value }}</td>
+                            <td>{{item.field_type}}</td>
+                            <!-- <td>{{item.not_null == "1" ? '是' : '否'}}</td> -->
+                            <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                        </tr>
+                        {{/if}}
+                        {{/each}}
+                    </table>
+                    {{/if}}
+                    {{/if}}
+                    <!--                    {{if request.event.pre_script != ''}}-->
+                    <!--                    <h4 class="title"><a href="javascript:;" class="maodian"></a> 预执行脚本</h4>-->
+                    <!--                    <div class="editor-preview">-->
+                    <!--                        <pre><code class="hljs">{{request.event.pre_script}}</code></pre>-->
+                    <!--                    </div>-->
+                    <!--                    {{/if}}-->
+                    <!--                    {{if request.event.test != ''}}-->
+                    <!--                    <h4 class="title"><a href="javascript:;" class="maodian"></a> 后执行脚本</h4>-->
+                    <!--                    <div class="editor-preview">-->
+                    <!--                        <pre><code class="hljs">{{request.event.test}}</code></pre>-->
+                    <!--                    </div>-->
+                    <!--                    {{/if}}-->
+
+                    {{/if}}
+                </div>
+                {{/if}}
+                <!--respond-->
+
+                <h3 class="title" style="{{response.success.raw || response.success.parameter.length > 0 || response.error.raw || response.error.parameter.length > 0 ? 'visibility: visible;':'visibility: hidden'}}"><a href="javascript:;" class="maodian">
+                        <img src="https://img.cdn.apipost.cn/v6/docs/img/globals.svg" alt="">
+                    </a> 响应示例<i class="fa fa-angle-down"></i></h3>
+                {{if response.success.raw || response.success.parameter.length > 0 || response.error.raw || response.error.parameter.length > 0}}
+                <div class="markdown-response">
+                    {{if response.success.raw || response.success.parameter.length > 0}}
+                    <h4 ><a href="javascript:;" class="maodian"></a> 成功响应示例</h4>
+                    <div class="editor-preview">
+                        <input type="hidden" id="response_success_editor_input" value="{{response.success.raw}}">
+                        <pre id="response_success_editor_json"><code class=" json">{{response.success.raw}}</code></pre>
+                    </div>
+                    {{if response.success.parameter.length > 0}}
+                    <h4><a href="javascript:;" class="maodian"></a> 字段描述</h4>
+                    <table class="response-parameter">
+                        <tr>
+                            <th>参数名</th>
+                            <th>示例值</th>
+                            <th>参数类型</th>
+                            <th>参数描述</th>
+                        </tr>
+                        {{each response.success.parameter item}}
+                        <tr>
+                            <td>{{@keyFormat(item.key)}}</td>
+                            <td>{{item.value == '' ? '-' : item.value }}</td>
+                            <td>{{item.field_type}}</td>
+                            <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                        </tr>
+                        {{/each}}
+                    </table>
+                    {{/if}}
+                    {{/if}}
+                    {{if response.error.raw || response.error.parameter.length > 0}}
+                    <h4 ><a href="javascript:;" class="maodian"></a> 失败响应示例</h4>
+                    <div class="editor-preview">
+                        <input type="hidden" id="response_error_editor_input" value="{{response.error.raw}}">
+                        <pre id="response_error_editor_json">
+                            <code class="hljs json">{{response.error.raw}}</code>
+                        </pre>
+                    </div>
+                    {{if response.error.parameter.length > 0}}
+                    <h4><a href="javascript:;" class="maodian"></a> 字段描述</h4>
+                    <table class="response-parameter">
+                        <tr>
+                            <th>参数名</th>
+                            <th>示例值</th>
+                            <th>参数类型</th>
+                            <th>参数描述</th>
+                        </tr>
+                        {{each response.error.parameter item}}
+                        <tr>
+                            <td>{{@keyFormat(item.key)}}</td>
+                            <td>{{item.value == '' ? '-' : item.value }}</td>
+                            <td>{{item.field_type}}</td>
+                            <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                        </tr>
+                        {{/each}}
+                    </table>
+                    {{/if}}
+                    {{/if}}
+                </div>
+                {{/if}}
+                {{else if target_type == 'folder'}}
+                <h3 class="title"><a href="javascript:;" class="maodian">
+                        <img src="https://img.cdn.apipost.cn/v6/docs/img/globals.svg" alt="">
+                    </a>公共参数<i class="fa fa-angle-down"></i></h3>
+                <div class="markdown-request">
+                    <h4 class="title" style="{{ request.header.length > 0 ?'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian"></a> Header参数及说明</h4>
+                    {{if request.header.length > 0}}
+                    <div>
+                        <table class="header">
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <!-- <th>参数类型</th> -->
+                                <th>参数描述</th>
+                            </tr>
+                            {{each request.header item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>
+                                    {{if item.key_var}}
+                                    {{item.key_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.key}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.key}}
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{if item.value_var}}
+                                    {{item.value_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.value}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.value == '' ? '-' : item.value}}
+                                    {{/if}}
+                                </td>
+                                <!-- <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td> -->
+                                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+                    </div>
+                    {{/if}}
+                    <h4 class="title" style="{{ request.query.length > 0 ?'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian"></a> Query参数及说明</h4>
+                    {{if request.query.length > 0}}
+                    <div>
+                        <table class="query">
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <!-- <th>参数类型</th> -->
+                                <th>参数描述</th>
+                            </tr>
+                            {{each request.query item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>
+                                    {{if item.key_var}}
+                                    {{item.key_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.key}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.key}}
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{if item.value_var}}
+                                    {{item.value_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.value}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.value == '' ? '-' : item.value}}
+                                    {{/if}}
+                                </td>
+                                <!-- <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td> -->
+                                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+                    </div>
+                    {{/if}}
+                    <h4 class="title" style="{{ request.body.length > 0 ?'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian"></a> Body参数及说明</h4>
+                    {{if request.body.length > 0}}
+                    <div>
+                        <table class="body">
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <!-- <th>参数类型</th> -->
+                                <th>参数描述</th>
+                            </tr>
+                            {{each request.body item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>
+                                    {{if item.key_var}}
+                                    {{item.key_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.key}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.key}}
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{if item.value_var}}
+                                    {{item.value_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.value}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.value == '' ? '-' : item.value}}
+                                    {{/if}}
+                                </td>
+                                <!-- <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td> -->
+                                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+                    </div>
+                    {{/if}}
+                    {{if request?.auth?.type != 'noauth' && request?.auth?.type}}
+                    <h4 class="title">认证及说明</h4>
+                    {{if request?.auth?.type == 'kv'}}
+                    <table class="auth">
+                        <tr>
+                            <td>认证类型：私密键值对</td>
+                            <td>键：{{request?.auth?.kv?.key}}</td>
+                            <td>值：{{request?.auth?.kv?.value}}</td>
+                        </tr>
+                    </table>
+                    {{/if}}
+                    {{if request.auth.type == 'basic'}}
+                    <table class="auth">
+                        <tr>
+                            <td>认证类型：Basic auth认证</td>
+                            <td>用户名：{{request?.auth?.basic?.username}}</td>
+                            <td>密码：{{request?.auth?.basic?.password}}</td>
+                        </tr>
+                    </table>
+                    {{/if}}
+                    {{if request?.auth?.type == 'bearer'}}
+                    <table class="auth">
+                        <tr>
+                            <td>认证类型：Bearer auth认证</td>
+                            <td>Token：{{request?.auth?.bearer?.key}}</td>
+                        </tr>
+                    </table>
+                    {{/if}}
+                    {{/if}}
+                </div>
+                <!--respond-->
+                {{/if}}
+                <div class="footer" style="text-align: center;margin: 35px 0;height: 50px">本文档由 <a href="https://www.apipost.cn/" target="_blank" style="color:#3a86ff">APIPOST接口调试与管理工具</a> 生成</div>
+            </script>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="golbal-env-tpl">
+    <h2 class="top">
+        <span>全局参数</span>
+        <span class="metadata">
+            创建时间：{{@dateFormat(create_dtime * 1000,'yyyy-MM-dd hh:mm:ss')}}
+            {{if expire_time != -1}}
+                <span style="color: #f44336; margin-left: 15px; font-weight: bold;"> 过期时间： {{@dateFormat(expire_time * 1000,'yyyy-MM-dd hh:mm:ss')}}</span>
+            {{/if}}
+        </span>
+
+    </h2>
+    <div class="editor-preview desc">
+    <!-- <p>本文档是X先生的私有项目的接口文档，以下为当前项目下的公共参数。</p> -->
+    </div>
+
+    <h3 class="title">
+        <a href="javascript:;" class="maodian">
+            <img src="https://img.cdn.apipost.cn/v6/docs/img/globals.svg" alt="">
+        </a>
+        全局参数
+        {{if vars?.request?.header?.length > 0 || vars?.request?.query?.length > 0 || vars?.request?.body?.length > 0 || vars?.auth?.type != 'noauth'}}
+        <i class="fa fa-angle-down"></i>
+        {{/if}}
+    </h3>
+    {{if vars?.request?.header?.length > 0 || vars?.request?.query?.length > 0 || vars?.request?.body?.length > 0 || vars?.auth?.type != 'noauth'}}
+    <div>
+        {{if vars.request.header.length > 0}}
+        <h4>Header参数及说明</h4>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>参数值</th>
+                <th>参数描述</th>
+            </tr>
+            {{each vars.request.header item}}
+            <tr>
+                <td>
+                    {{if item.key_var}}
+                    {{item.key_var}}
+                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                    <div class="vars_title">
+                        变量{{item.key}} 生成
+                    </div>
+                    {{else}}
+                    {{item.key}}
+                    {{/if}}
+                </td>
+                <td>
+                    {{if item.value_var}}
+                    {{item.value_var}}
+                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                    <div class="vars_title">
+                        变量{{item.value}} 生成
+                    </div>
+                    {{else}}
+                    {{item.value == '' ? '-' : item.value }}
+                    {{/if}}
+                </td>
+                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+            </tr>
+            {{/each}}
+        </table>
+        {{/if}}
+
+        {{if vars.request.query.length > 0}}
+        <h4>Query参数及说明</h4>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>参数值</th>
+                <th>参数描述</th>
+            </tr>
+
+            {{each vars.request.query item}}
+            <tr>
+                <td>
+                    {{if item.key_var}}
+                    {{item.key_var}}
+                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                    <div class="vars_title">
+                        变量{{item.key}} 生成
+                    </div>
+                    {{else}}
+                    {{item.key}}
+                    {{/if}}
+                </td>
+                <td>
+                    {{if item.value_var}}
+                    {{item.value_var}}
+                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                    <div class="vars_title">
+                        变量{{item.value}} 生成
+                    </div>
+                    {{else}}
+                    {{item.value == '' ? '-' : item.value }}
+                    {{/if}}
+                </td>
+                <td>
+                    <pre>{{item.description == '' ? '-' : item.description }}</pre>
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+        {{/if}}
+
+        {{if vars?.request?.body?.length > 0}}
+        <h4>Body参数及说明</h4>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>参数值</th>
+                <th>参数描述</th>
+            </tr>
+            {{each vars?.request?.body item}}
+            <tr>
+                <td>
+                    {{if item.key_var}}
+                    {{item.key_var}}
+                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                    <div class="vars_title">
+                        变量{{item.key}} 生成
+                    </div>
+                    {{else}}
+                    {{item.key}}
+                    {{/if}}
+                </td>
+                <td>
+                    {{if item.value_var}}
+                    {{item.value_var}}
+                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                    <div class="vars_title">
+                        变量{{item.value}} 生成
+                    </div>
+                    {{else}}
+                    {{item.value == '' ? '-' : item.value }}
+                    {{/if}}
+                </td>
+                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+            </tr>
+            {{/each}}
+        </table>
+        {{/if}}
+        {{if vars?.auth?.type != 'noauth'}}
+        <h4>认证及说明</h4>
+        {{if vars?.auth?.type == 'kv'}}
+        <table>
+            <tr>
+                <td>认证类型：私密键值对</td>
+                <td>键：{{vars?.auth?.kv?.key}}</td>
+                <td>值：{{vars?.auth?.kv?.value}}</td>
+            </tr>
+        </table>
+        {{/if}}
+        {{if vars.auth.type == 'basic'}}
+        <table>
+            <tr>
+                <td>认证类型：Basic auth认证</td>
+                <td>用户名：{{vars?.auth?.basic?.username}}</td>
+                <td>密码：{{vars?.auth?.basic?.password}}</td>
+            </tr>
+        </table>
+        {{/if}}
+        {{if vars?.auth?.type == 'bearer'}}
+        <table>
+            <tr>
+                <td>认证类型：Bearer auth认证</td>
+                <td>Token：{{vars?.auth?.bearer?.key}}</td>
+            </tr>
+        </table>
+        {{/if}}
+        {{/if}}
+        <!--        {{if vars.script.pre_script != ""}}-->
+        <!--        <h4 class="title"><a href="javascript:;" class="maodian"></a> 预执行脚本</h4>-->
+        <!--        <div class="editor-preview">-->
+        <!--            <pre><code class="hljs">{{vars.script.pre_script}}</code></pre>-->
+        <!--        </div>-->
+        <!--        {{/if}}-->
+        <!--        {{if vars.script.test != "" }}-->
+        <!--        <h4 class="title"><a href="javascript:;" class="maodian"></a> 后执行脚本</h4>-->
+        <!--        <div class="editor-preview">-->
+        <!--            <pre><code class="hljs">{{vars.script.test}}</code></pre>-->
+        <!--        </div>-->
+        <!--        {{/if}}-->
+    </div>
+    {{else}}
+    <div style="text-align: center;display: block"><img src="https://img.cdn.apipost.cn/v6/docs/img/emptyglobals.svg" style="width: 100px;margin:20px auto 20px;">暂无参数</div>
+    {{/if}}
+
+    <div class="footer" style="text-align: center;margin: 35px 24px;height: 50px;">本文档由 <a href="https://www.apipost.cn/" target="_blank" style="color:#3a86ff">APIPOST接口调试与管理工具</a> 生成</div>
+</script>
+<script type="text/html" id="doc-head-tpl">
+    <div class="export">
+
+    </div>
+    <div class="user_photo">
+        <img src="{{portrait}}"alt="">
+    </div>
+</script>
+<script type="text/html" id="project-name-tpl">
+    <img src="https://img.cdn.apipost.cn/v6/docs/img/project.svg" alt="">
+    {{project_name}}
+</script>
+<script>
+    template.defaults.imports.marked = function (md) {
+        marked.setOptions({
+            renderer: new marked.Renderer(),
+            highlight: function (code) {
+                return hljs.highlight('javascript', code).value;
+            },
+            breaks: true
+        });
+        return marked(md).replace(/<pre>/g, "<pre class='hljs javascript'>");
+    }
+    function dateFormat(date, format) {
+        date = new Date(date);
+        var map = {
+            "M": date.getMonth() + 1, //月份
+            "d": date.getDate(), //日
+            "h": date.getHours(), //小时
+            "m": date.getMinutes(), //分
+            "s": date.getSeconds(), //秒
+            "q": Math.floor((date.getMonth() + 3) / 3), //季度
+            "S": date.getMilliseconds() //毫秒
+        };
+        format = format.replace(/([yMdhmsqS])+/g, function (all, t) {
+            var v = map[t];
+            if (v !== undefined) {
+                if (all.length > 1) {
+                    v = '0' + v;
+                    v = v.substr(v.length - 2);
+                }
+                return v;
+            } else if (t === 'y') {
+                return (date.getFullYear() + '').substr(4 - all.length);
+            }
+            return all;
+        });
+        return format;
+    };
+    template.defaults.imports.dateFormat = dateFormat;
+    function dragControllerDiv(resize, left, mid, box) {
+        for (let i = 0; i < resize.length; i++) {
+            // 鼠标按下事件
+            resize[i].onmousedown = function (e) {
+                //颜色改变提醒
+                resize[i].style.borderColor = "#9d9d9d";
+                var startX = e.clientX;
+                resize[i].left = resize[i].offsetLeft;
+                // 鼠标拖动事件
+                document.onmousemove = function (e) {
+                    var endX = e.clientX;
+                    var moveLen = resize[i].left + (endX - startX); // （endx-startx）=移动的距离。resize[i].left+移动的距离=左边区域最后的宽度
+                    var maxT = box[i].clientWidth - resize[i].offsetWidth; // 容器宽度 - 左边区域的宽度 = 右边区域的宽度
+
+                    if (moveLen < 300) moveLen = 300; // 左边区域的最小宽度为32px
+                    if (moveLen > maxT - 150) moveLen = maxT - 150; //右边区域最小宽度为150px
+
+                    resize[i].style.left = moveLen; // 设置左侧区域的宽度
+                    $('.target.title').css({ maxWidth: moveLen + 'px' })
+                    for (let j = 0; j < left.length; j++) {
+                        left[j].style.width = moveLen + "px";
+                        mid[j].style.width = box[i].clientWidth - moveLen - 10 + "px";
+                    }
+                };
+                // 鼠标松开事件
+                document.onmouseup = function (evt) {
+                    //颜色恢复
+                    resize[i].style.borderColor = "#d6d6d6";
+                    document.onmousemove = null;
+                    document.onmouseup = null;
+                    resize[i].releaseCapture && resize[i].releaseCapture(); //当你不在需要继续获得鼠标消息就要应该调用ReleaseCapture()释放掉
+                };
+                resize[i].setCapture && resize[i].setCapture(); //该函数在属于当前线程的指定窗口里设置鼠标捕获
+                return false;
+            };
+        }
+    }
+    function keyFormat(params) {
+        let arr = params.split('.');
+        let str = ''
+        for (let i = 0; i < arr.length - 1; i++) {
+            str += `<span style="color:#999">${arr[i]}.</span>`
+        }
+        str += arr[arr.length - 1];
+        return str;
+    }
+    template.defaults.imports.keyFormat = keyFormat;
+    let timer = null
+    let arr = {"id":443574,"project_id":2066528,"name":"X先生的私有项目","url":"c79d0ab09f035142","salt":"101ee12996d08e6d","password":"","env_id":"-1","create_time":1654133743,"target_id":2066528,"target_type":"project","expire_days":-1,"expire_time":-1,"project_name":"X先生的私有项目","portrait":"https:\/\/img.cdn.apipost.cn\/user\/default_profile_photo\/Vector-6.png","nick_name":"X先生","publisher":"X先生","pub_name":"X先生的私有项目","project":{"vars":{"request":{"header":[{"is_checked":"1","type":"Text","key":"","value":"","description":""}],"query":[{"is_checked":"1","type":"Text","key":"","value":"","description":""}],"cookie":[{"is_checked":"1","type":"Text","key":"","value":"","description":""}],"body":[{"is_checked":"1","type":"Text","key":"","value":"","description":""}]},"script":{"pre_script":"","test":""},"variable":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"methods":["POST","GET","PUT","PATCH","DELETE","COPY","HEAD","OPTIONS","LINK","UNLINK","PURGE","LOCK","UNLOCK","PROPFIND","VIEW"],"mark":[{"key":"developing","name":"开发中","color":"#3A86FF"},{"key":"complated","name":"已完成","color":"#2BA58F"},{"key":"modifying","name":"需修改","color":"#EC4646"}]}},"children":[{"local_target_id":"d9376837-0fa5-4678-bdd1-7443802d70a1","local_parent_id":"0","name":"成员管理","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":0,"create_dtime":1616639819,"update_dtime":1640508300,"target_id":22022502,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"description":"","header":[],"query":[],"body":[],"auth":[]},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"dadd39aa-1686-403c-9d75-edbdd67c674e","local_parent_id":"d9376837-0fa5-4678-bdd1-7443802d70a1","name":"log","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":0,"create_dtime":1653452632,"update_dtime":1653452632,"target_id":29622066,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"description":"","header":[],"query":[],"body":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}}},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"b6e4a438-03b3-417c-9a02-595e241d6d01","local_parent_id":"dadd39aa-1686-403c-9d75-edbdd67c674e","name":"login","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":0,"create_dtime":1652967723,"update_dtime":1654135557,"target_id":29267882,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/log\/login","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"membername","value":"哦哦哦哦哦","not_null":1,"description":"登录选用用户名登录，可切换为memberid登录","field_type":"Text","__DATAKEY__":"cce07d65-ba20-4d26-b8bb-ada4de8d8915","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"password","value":"123456","not_null":1,"description":"密码","field_type":"Text","__DATAKEY__":"ceef07e5-e77a-427b-a38a-cde86baefb89","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"qx","value":"2","not_null":1,"description":"要登录的页面所需权限","field_type":"Integer","__DATAKEY__":"511ab869-8f3a-4701-8118-a1b41ea13ae9","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/log\/login"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"36f15e5f-e32e-44d9-8b0b-4bd946bfb581","local_parent_id":"dadd39aa-1686-403c-9d75-edbdd67c674e","name":"logout","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":1,"create_dtime":1653465281,"update_dtime":1653465281,"target_id":29646014,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/log\/logout","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/log\/logout"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}}]},{"local_target_id":"50a836ae-1764-4ed6-aeef-2419b41c1355","local_parent_id":"d9376837-0fa5-4678-bdd1-7443802d70a1","name":"Member","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":1,"create_dtime":1652967685,"update_dtime":1652967685,"target_id":29267860,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"description":"","header":[],"query":[],"body":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}}},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"d9a629cf-84eb-4bcb-8a74-2d68cec6ccc8","local_parent_id":"50a836ae-1764-4ed6-aeef-2419b41c1355","name":"findMember","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":0,"create_dtime":1652930203,"update_dtime":1654136494,"target_id":29206022,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/member\/findMember","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"可选，根据ID查询或用户名查询","is_checked":"1","key":"memberid","type":"Text","not_null":"-1","field_type":"Text","value":"51","__DATAKEY__":"f49030f3-4ec3-4c8d-9dcc-b09ece8d7379","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[{"is_checked":1,"type":"Text","key":"memberid","value":"52","not_null":1,"description":"","field_type":"Text","__DATAKEY__":"f910a1e0-beba-4526-9598-61579c9139d4","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"membername","value":"Test","not_null":1,"description":"","field_type":"Text","__DATAKEY__":"537f150f-f8a0-47a4-8937-5154c7164bc6","key_var":"","value_var":""}]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/member\/findMember"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"3c05d008-dc4c-4df7-a995-d61bc857768a","local_parent_id":"50a836ae-1764-4ed6-aeef-2419b41c1355","name":"updateMember","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":1,"create_dtime":1653206647,"update_dtime":1654137491,"target_id":29392389,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/member\/updateMember","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"需要修改的成员id","is_checked":1,"key":"memberid","type":"Text","not_null":1,"field_type":"Text","value":"51","__DATAKEY__":"e8824576-a6f6-4863-b9cf-59338cc492ef","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"membername","value":"TestX","not_null":"-1","description":"需要修改的用户名，最多七个字","field_type":"Text","__DATAKEY__":"b1c3af50-cd98-4fb9-81b6-6c7c03efc253","key_var":"","value_var":""},{"description":"修改的战力值 `force`=`force`+force","is_checked":1,"key":"force","type":"Text","not_null":"-1","field_type":"Text","value":"1","__DATAKEY__":"f461be16-000b-452f-8e27-2933a42d6a3e","key_var":"","value_var":""},{"description":"修改部门","is_checked":1,"key":"bumen","type":"Text","not_null":"-1","field_type":"Text","value":"技术部","__DATAKEY__":"af16452f-1dc3-48f5-a9d3-cc94e5373515","key_var":"","value_var":""},{"description":"修改密码","is_checked":1,"key":"password","type":"Text","not_null":"-1","field_type":"Text","value":"123456","__DATAKEY__":"235ce9f7-f6e1-45f3-842e-fb155b245f3d","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"picture","value":"www.com","not_null":"-1","description":"上传新头像","field_type":"Text","__DATAKEY__":"b49a8d6c-0f82-47aa-9924-f82fb4aa45af","key_var":"","value_var":""},{"description":"修改个人描述","is_checked":1,"key":"introduce","type":"Text","not_null":"-1","field_type":"Text","value":"技术部副部长","__DATAKEY__":"d55934c6-9625-46a2-ade6-fc644c3dc10d","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/member\/updateMember"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"f5bbc289-a136-46f6-830c-d3af03b11f66","local_parent_id":"50a836ae-1764-4ed6-aeef-2419b41c1355","name":"insertMember","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":2,"create_dtime":1653389368,"update_dtime":1654135862,"target_id":29576716,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/member\/insertMember","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"新增成员的ID","is_checked":1,"key":"memberid","type":"Text","not_null":1,"field_type":"Text","value":"52","__DATAKEY__":"cf64bfc8-e706-489b-acb9-71f53c9c0923","key_var":"","value_var":""},{"description":"新增成员的用户名，最多不超过七个字","is_checked":1,"key":"membername","type":"Text","not_null":1,"field_type":"Text","value":"Test","__DATAKEY__":"99cdc18a-959e-4284-9035-69766ec705b5","key_var":"","value_var":""},{"description":"新增成员所属部门","is_checked":1,"key":"bumen","type":"Text","not_null":1,"field_type":"Text","value":"Test","__DATAKEY__":"0fd3d475-3c30-4791-945b-f376e49a7fe4","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/member\/insertMember"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"5d11a844-46e6-42b9-a4ac-07af58349f6c","local_parent_id":"50a836ae-1764-4ed6-aeef-2419b41c1355","name":"deleteMember","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":3,"create_dtime":1653391144,"update_dtime":1654135863,"target_id":29583006,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/member\/deleteMember","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"memberid","value":"52","not_null":1,"description":"需要删除的成员id","field_type":"Text","__DATAKEY__":"5297be08-93da-4fd1-bb75-8deb478a01f2","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/member\/deleteMember"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"73e94025-9d19-4481-b0cc-15c9546b48bf","local_parent_id":"50a836ae-1764-4ed6-aeef-2419b41c1355","name":"findMembers","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":4,"create_dtime":1652968023,"update_dtime":1654136553,"target_id":29267962,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/member\/findMembers","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"pageNum","value":"1","not_null":"-1","description":"分页查询所有成员的，当前页数，默认为1，一页十行","field_type":"Text","__DATAKEY__":"9a89483d-5b2a-4b8f-9853-a86a06eef4a6","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/member\/findMembers"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"1f454d4b-f79c-4634-bbb8-72b9c8c25cc4","local_parent_id":"50a836ae-1764-4ed6-aeef-2419b41c1355","name":"findMemberBulletins","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":5,"create_dtime":1653729324,"update_dtime":1654135824,"target_id":29857233,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/member\/findMemberBulletins","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"memberid","value":"51","not_null":1,"description":"查询该成员的所有告示","field_type":"Text","__DATAKEY__":"4dc6fbcc-c7b9-45ff-82b2-0d4a40964f2c","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/member\/findMemberBulletins"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"c7a33c90-18be-4eac-b129-92df7081953b","local_parent_id":"50a836ae-1764-4ed6-aeef-2419b41c1355","name":"findMemberForces","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":6,"create_dtime":1654071490,"update_dtime":1654135859,"target_id":30124601,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/member\/findMemberForces","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"查询该成员的所有战力修改日志","is_checked":1,"key":"memberid","type":"Text","not_null":1,"field_type":"Text","value":"51","__DATAKEY__":"7ffc4c32-8d67-4a9b-b61d-f69580bd2587","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/member\/findMemberForces"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}}]},{"local_target_id":"6358c645-4650-4fe3-ba84-a7f0640bdb20","local_parent_id":"d9376837-0fa5-4678-bdd1-7443802d70a1","name":"Force","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":2,"create_dtime":1653570520,"update_dtime":1653570519,"target_id":29759545,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"description":"","header":[],"query":[],"body":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}}},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"cbbd014d-5420-476e-bd13-4ca470aec2aa","local_parent_id":"6358c645-4650-4fe3-ba84-a7f0640bdb20","name":"findForce","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":1,"create_dtime":1653570605,"update_dtime":1654136552,"target_id":29759583,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/force\/findForce","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"forceid","value":"45","not_null":1,"description":"查询编号为45的战力日志信息","field_type":"Text","__DATAKEY__":"5361fba2-0b34-4877-95f0-fba7efb1bf4e","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/force\/findForce"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"fdbb8184-6385-4fce-a9e2-c0a7b6b4e179","local_parent_id":"6358c645-4650-4fe3-ba84-a7f0640bdb20","name":"insertForce","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":2,"create_dtime":1653572498,"update_dtime":1654136167,"target_id":29760376,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/force\/insertForce","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"战力对应成员id","is_checked":1,"key":"memberid","type":"Text","not_null":1,"field_type":"Text","value":"51","__DATAKEY__":"68e42177-231d-41af-a095-a2392248169c","key_var":"","value_var":""},{"description":"战力日志修改的战力值","is_checked":1,"key":"forceindex","type":"Text","not_null":1,"field_type":"Text","value":"-10","__DATAKEY__":"2c9eecab-ab1f-4afa-9f53-7fe6b5494930","key_var":"","value_var":""},{"description":"战力日志的描述","is_checked":1,"key":"forceadddata","type":"Text","not_null":1,"field_type":"Text","value":"打架打不过，就这就这？？？","__DATAKEY__":"1cbf652f-5a56-43e8-bc53-d96f0f956be4","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/force\/insertForce"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"ffd1e616-bb68-4485-8ad0-026f26c64959","local_parent_id":"6358c645-4650-4fe3-ba84-a7f0640bdb20","name":"updateForce","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":3,"create_dtime":1653738052,"update_dtime":1654136552,"target_id":29860157,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/force\/updateForce","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"战力日志ID","is_checked":1,"key":"forceid","type":"Text","not_null":1,"field_type":"Text","value":"45","__DATAKEY__":"446ed617-74ab-45d6-ae70-3da55043d01e","key_var":"","value_var":""},{"description":"对应成员ID","is_checked":1,"key":"memberid","type":"Text","not_null":"-1","field_type":"Text","value":"1","__DATAKEY__":"6baefbad-56ff-4852-94be-b83fd09e0e85","key_var":"","value_var":""},{"description":"修改状态值","is_checked":1,"key":"forcestate","type":"Text","not_null":"-1","field_type":"Text","value":"0","__DATAKEY__":"ecd9e844-6a69-478e-a9ec-bece0c69315c","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/force\/updateForce"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"348c8e0f-a4b6-4ba8-9049-10554ab244fa","local_parent_id":"6358c645-4650-4fe3-ba84-a7f0640bdb20","name":"deleteForce","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":4,"create_dtime":1653738526,"update_dtime":1654136652,"target_id":29860244,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/force\/deleteForce","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"所需删除的日志编号，一般不使用，只更改状态码让其查不出来","is_checked":1,"key":"forceid","type":"Text","not_null":1,"field_type":"Text","value":"45","__DATAKEY__":"e33fb112-0a5b-4c52-9875-e685c826c3dc","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/force\/deleteForce"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"4128e40f-0766-4b43-bd6e-d4be47e92599","local_parent_id":"6358c645-4650-4fe3-ba84-a7f0640bdb20","name":"findForces","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":5,"create_dtime":1654058300,"update_dtime":1654136720,"target_id":30097328,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/force\/findForces","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"分页查询所有日志的，当前页数，默认为1，一页十行","is_checked":1,"key":"pageNum","type":"Text","not_null":"-1","field_type":"Text","value":"1","__DATAKEY__":"564fb5ad-f5e2-4229-aa06-80da2d3be89b","key_var":"","value_var":""},{"description":"查询对应成员的所有日志","is_checked":1,"key":"memberid","type":"Text","not_null":"-1","field_type":"Text","value":"51","__DATAKEY__":"200628ec-a759-4ef6-a52e-fcd4d66f3dbf","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/force\/findForces"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"b891fb25-e18c-4b08-b525-fb7577859d95","local_parent_id":"6358c645-4650-4fe3-ba84-a7f0640bdb20","name":"findForceState","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":6,"create_dtime":1654133989,"update_dtime":1654136789,"target_id":30160339,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/force\/findForceState","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"根据状态码查询","is_checked":1,"key":"forcestate","type":"Text","not_null":"1","field_type":"Text","value":"0","__DATAKEY__":"c23a0446-fda1-4687-853f-722e988c8970","key_var":"","value_var":""},{"description":"分页查询所有日志的，当前页数，默认为1，一页十行","is_checked":1,"key":"pageNum","type":"Text","not_null":"-1","field_type":"Text","value":"1","__DATAKEY__":"7bd1f88a-6e5d-40a5-b690-71bdea3945d4","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/force\/findForceState"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}}]},{"local_target_id":"b742488c-4110-483b-8c0b-41a450bf8de9","local_parent_id":"d9376837-0fa5-4678-bdd1-7443802d70a1","name":"Bulletin","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":3,"create_dtime":1654077494,"update_dtime":1654077493,"target_id":30144882,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"description":"","header":[],"query":[],"body":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}}},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"3d658d81-b57a-4cc2-8609-ea57ae1c0187","local_parent_id":"b742488c-4110-483b-8c0b-41a450bf8de9","name":"findBulletin","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":0,"create_dtime":1654133990,"update_dtime":1654136844,"target_id":30160340,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/bulletin\/findBulletin","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"根据ID查询对应告示","is_checked":1,"key":"bulletinid","type":"Text","not_null":1,"field_type":"Text","value":"1","__DATAKEY__":"ea84fc3d-c70c-447d-ae04-bcac138a183d","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/bulletin\/findBulletin"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"5e3ccd63-5305-4349-8a5e-e79aaba97868","local_parent_id":"b742488c-4110-483b-8c0b-41a450bf8de9","name":"updateBulletin","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":1,"create_dtime":1654133985,"update_dtime":1654137111,"target_id":30160324,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/bulletin\/updateBulletin","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"需要修改的告示ID","is_checked":1,"key":"bulletinid","type":"Text","not_null":"1","field_type":"Text","value":"1","__DATAKEY__":"b4f80d7f-b003-4199-bebc-ad3aeb703bdc","key_var":"","value_var":""},{"description":"需要修改的告示状态","is_checked":1,"key":"bulletinstate","type":"Text","not_null":"1","field_type":"Text","value":"0","__DATAKEY__":"ba965ca6-1895-4894-88b0-2591c1f67a3b","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/bulletin\/updateBulletin"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"aea10a9e-df8d-458f-950c-84d2f2b6eeea","local_parent_id":"b742488c-4110-483b-8c0b-41a450bf8de9","name":"insertBulletin","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":2,"create_dtime":1654133985,"update_dtime":1654137325,"target_id":30160333,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/bulletin\/insertBulletin","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"memberid","value":"51","not_null":1,"description":"插入的成员ID","field_type":"Text","__DATAKEY__":"2298ee89-3e77-4a6f-a6a7-430de6bff57b","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"bulletinclass","value":"活动","not_null":1,"description":"插入的告示类型","field_type":"Text","__DATAKEY__":"c6d6a27f-d2bf-46a6-9771-431626773e5b","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"bulletintitle","value":"中秋佳节","not_null":1,"description":"插入的告示标题","field_type":"Text","__DATAKEY__":"c12d2d43-3a2b-49a1-b598-a075db0927ef","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"bulletinbody","value":"中秋节活动安排如下………………","not_null":1,"description":"插入的告示内容","field_type":"Text","__DATAKEY__":"f2448ff4-260c-4a89-a663-dac0fc4fd95f","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/bulletin\/insertBulletin"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"9b042b46-d61e-4e9c-8d1f-ccb5e50f1c22","local_parent_id":"b742488c-4110-483b-8c0b-41a450bf8de9","name":"deleteBulletin","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":3,"create_dtime":1654133986,"update_dtime":1654137163,"target_id":30160334,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/bulletin\/findBulletin","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"bulletinid","value":"0","not_null":1,"description":"所需删除的告示，一般不使用，只更改状态码让其查不出来","field_type":"Text","__DATAKEY__":"2119cbd6-f65a-4e67-bdc1-b9abf1ac14c3","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/bulletin\/findBulletin"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"6aeba3e1-3d1f-4c29-b89d-452919090862","local_parent_id":"b742488c-4110-483b-8c0b-41a450bf8de9","name":"findBulletinPictures","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":4,"create_dtime":1654077634,"update_dtime":1654137059,"target_id":30145134,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/bulletin\/findBulletinPictures","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"bulletinid","value":"1","not_null":1,"description":"根据ID查询对应告示及其插入的图片地址","field_type":"Text","__DATAKEY__":"e3f7bdd0-d717-4b2e-bae5-8f4bf3f5f60e","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/bulletin\/findBulletinPictures"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"cfb7cb11-05e1-4a5c-a3e6-ccf612387857","local_parent_id":"b742488c-4110-483b-8c0b-41a450bf8de9","name":"findBulletinState","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":5,"create_dtime":1654133989,"update_dtime":1654137101,"target_id":30160338,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/bulletin\/findBulletinState","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"根据状态码查询","is_checked":1,"key":"bulletinstate","type":"Text","not_null":1,"field_type":"Text","value":"0","__DATAKEY__":"e3f4805e-b1a9-4fdc-b3c9-12ae73bc5bff","key_var":"","value_var":""},{"description":"分页查询所有日志的，当前页数，默认为1，一页十行","is_checked":1,"key":"pageNum","type":"Text","not_null":"-1","field_type":"Text","value":"1","__DATAKEY__":"47049c99-7144-4250-befd-37244c17d503","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/bulletin\/findBulletinState"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}}]},{"local_target_id":"191149da-c5f8-4657-9009-8b4286dbc000","local_parent_id":"d9376837-0fa5-4678-bdd1-7443802d70a1","name":"picture","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":5,"create_dtime":1654089400,"update_dtime":1654089447,"target_id":30152400,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"description":"","header":[],"query":[],"body":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}}},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"ac5d33db-d301-4d09-b51c-d095220d5cb0","local_parent_id":"191149da-c5f8-4657-9009-8b4286dbc000","name":"findPicture","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":1,"create_dtime":1654089401,"update_dtime":1654137505,"target_id":30152403,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/picture\/findPicture","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"pictureid","value":"1","not_null":1,"description":"根据ID查询图片地址","field_type":"Text","__DATAKEY__":"342bc89a-6857-4a6f-9db7-0fdfb8f5a520","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/picture\/findPicture"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"aeef0ec3-91d6-472a-96c9-a274370f5ef4","local_parent_id":"191149da-c5f8-4657-9009-8b4286dbc000","name":"insertPicture","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":2,"create_dtime":1654089401,"update_dtime":1654137604,"target_id":30152402,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/picture\/insertPicture","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"bulletinid","value":"1","not_null":1,"description":"根据所属告示ID插入对应图片","field_type":"Text","__DATAKEY__":"470a2485-ac65-459a-a0cf-55eff00e3e8e","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"pictureurl","value":"www.cn","not_null":1,"description":"图片地址","field_type":"Text","__DATAKEY__":"abe2f152-bb7f-4696-8830-7554c0157396","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/picture\/insertPicture"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"e383add8-bba1-4123-96fb-5a7450c0f58d","local_parent_id":"191149da-c5f8-4657-9009-8b4286dbc000","name":"updatePicture","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":3,"create_dtime":1654089401,"update_dtime":1654137674,"target_id":30152401,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/picture\/updatePicture","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"需要修改的图片","is_checked":1,"key":"pictureid","type":"Text","not_null":1,"field_type":"Text","value":"1","__DATAKEY__":"6caa4e49-ff22-44f0-9fcf-83ccb5337463","key_var":"","value_var":""},{"description":"新的图片地址","is_checked":1,"key":"pictureurl","type":"Text","not_null":1,"field_type":"Text","value":"www.baidu.com","__DATAKEY__":"7693893f-037a-4dbc-b369-e7f7f8ebfc8f","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/picture\/updatePicture"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"8cd30784-0ab9-415b-987d-b4bc559b944d","local_parent_id":"191149da-c5f8-4657-9009-8b4286dbc000","name":"deletePicture","method":"POST","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":4,"create_dtime":1654089402,"update_dtime":1654137697,"target_id":30152405,"create_users":{"create_user":"X先生","update_user":"X先生"},"request":{"url":"http:\/\/localhost\/picture\/deletePicture","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"pictureid","value":"1","not_null":1,"description":"根据ID删除对应图片","field_type":"Text","__DATAKEY__":"7b29007d-f868-4fcc-b7cc-edd58172eea5","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"http:\/\/localhost\/picture\/deletePicture"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}}]}]}]};
+    function GetUrlQuery(uri) {
+        let url = '';
+        if (typeof uri === 'undefined') {
+            url = window.location.search;
+        } else {
+            url = `?${uri.split('?')[1]}`;
+        }
+        const theRequest = {};
+        if (url.indexOf('?') !== -1) {
+            const str = url.substr(1);
+            const strs = str.split('&');
+            for (let i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split('=')[0]] = unescape(strs[i].split('=')[1]);
+            }
+        }
+        return theRequest;
+    };
+
+    function findFatherDom(el) {
+        if (el.parent().parent().children(":first").hasClass('folder')) {
+            el.parent().parent().show()
+            console.log(el.parent().parent());
+            el.parent().parent().children().show()
+            el.parent().parent().children(":first").find('.folder_select').removeClass('right').addClass('down')
+            el.parent().parent().children(":first").nextAll('.folder').find('folder_select').removeClass('down').addClass('right')
+            findFatherDom(el.parent().prev())
+        } else {
+            el.parent().children().show()
+            return
+        }
+    }
+    window.onload = function () {
+        // const { url, salt } = GetUrlQuery();
+        const head_obj = {
+            portrait: arr.portrait,
+        }
+        let head_html = template('doc-head-tpl', head_obj);
+
+        $('.doc-head .container').html(head_html)
+        let _html = template('template-target-sidebar-list-tpl', {
+            list: arr.children
+        });
+
+        $('.new').html(_html)
+        let project_name_html = template('project-name-tpl', {
+            project_name: arr.project_name
+        });
+        $('.box-first .title').html(project_name_html)
+
+        $('.target.folder').find('.folder_select').removeClass('down').addClass('right')
+        $('.target.folder').nextAll().hide()
+        let urlLink = window.location.href;
+        let id = urlLink.split('#')[1] ? urlLink.split('#')[1] : '001'
+        if ($(`.target[data-target_id="${id}"]`).length > 0) {
+            if (id != '001') {
+                findFatherDom($(`.target[data-target_id="${id}"]`))
+            }
+
+            $(`.target[data-target_id="${id}"]`).trigger('click')
+        } else {
+            location.href = urlLink.split('#')[0] + "#001"
+            return
+        }
+        var resize = document.getElementsByClassName("bar");
+        var left = document.getElementsByClassName("box-first");
+        var mid = document.getElementsByClassName("box-third");
+        var box = document.getElementsByClassName("box");
+        console.log(123434);
+        dragControllerDiv(resize, left, mid, box);
+        $('.target.folder').find('.folder_select').removeClass('down').addClass('right')
+        $('.target.folder').nextAll().hide()
+
+    }
+    $('.body').show()
+    $(document).on('click', '.target', function () {
+        let _local_target_id = $(this).attr('data-target_id');
+        let urlLink = window.location.href.split('#')[0] + '#' + _local_target_id;
+
+        const { url, salt } = GetUrlQuery();
+        const token = localStorage.getItem(`token${url}`);
+        history.replaceState(null, null, urlLink)
+        console.log(url);
+
+        $('.target').each((i, el) => {
+            $(el).removeClass('active')
+        })
+        if ($(this).attr('data-type') == 'folder') {
+            $('.box-nav').show()
+            $(this).nextAll().show()
+            $(this).find('.folder_select').removeClass('right').addClass('down')
+            $('.box-nav .folder').show()
+            $('.box-nav .api').hide()
+        } else if ($(this).attr('data-type') == 'example' || $(this).attr('data-type') == 'api') {
+            $('.box-nav').show()
+            $('.box-nav .api').show()
+            $('.box-nav .folder').hide()
+        } else {
+            $('.box-nav').hide()
+        }
+
+        $(this).addClass('active')
+        // if (_local_target_id == 001 || !_local_target_id) {
+        //   return;
+        // }
+        let newdata = JSON.parse(JSON.stringify(arr))
+        let LevelArr = []
+
+        function levelTree(arr1, newarr) {
+            arr1.forEach(item => {
+                if (item.children && item.children.length > 0) {
+                    newarr.push(item)
+                    levelTree(item.children, newarr)
+                } else {
+                    newarr.push(item)
+                }
+            })
+        }
+
+        levelTree(newdata.children, LevelArr)
+        LevelArr.forEach(item => {
+            if (item.local_target_id == _local_target_id) {
+                if (item.target_type == 'example' || item.target_type == 'api') {
+                    switch (item.request.body.mode) {
+                        case "none":
+                            break;
+                        case "form-data":
+                            item.request.body.mode = "multipart/form-data";
+                            break;
+                        case "urlencoded":
+                            item.request.body.mode = "application/x-www-form-urlencoded";
+                            break;
+                        case "json":
+                            item.request.body.mode = "application/json";
+                            break;
+                        case "xml":
+                            item.request.body.mode = "application/xml";
+                            break;
+                        case "javascript":
+                            item.request.body.mode = "application/javascript";
+                            break;
+                        case "plain":
+                            item.request.body.mode = "text/plain";
+                            break;
+                        case "html":
+                            item.request.body.mode = "text/html";
+                            break;
+                    }
+                    $('.template-nav-menu').html(template('template-nav-menu-tpl', item));
+                    if (item.target_type != 'folder') {
+                        let _export_data = new ClipboardJS('.CopyCurrentData', {
+                            text: function (trigger) {
+                                return trigger.getAttribute('data-clipboard-text');
+                            }
+                        });
+                        console.log(_export_data);
+                        _export_data.on('success', function (e) {
+                            $('.CopyCurrentData').text('已复制').addClass('success');
+                            e.clearSelection();
+                        });
+                        _export_data.on('error', function (e) {
+                            console.log('失败');
+                        });
+                    }
+                }
+                arr?.project?.vars?.mark.forEach((it) => {
+                    if (it.key == item.mark) {
+                        if (it.color == '') {
+                            if (item.mark == 'developing') {
+                                item.markName = '开发中'
+                                item.markColor = 'rgb(58, 134, 255)'
+                            }
+                            if (item.mark == 'complated') {
+                                item.markName = '已完成'
+                                item.markColor = 'rgb(46, 196, 182)'
+                            }
+                            if (item.mark == 'modifying') {
+                                item.markName = '需修改'
+                                item.markColor = 'rgb(236, 70, 70)'
+                            }
+                        } else {
+                            item.markName = it.name
+                            item.markColor = it.color
+                        }
+                    }
+                })
+                let _html = template('template-example-doc-tpl', item);
+                $('.preview-markdown').html(_html)
+                if (item.target_type == 'folder') {
+                    const folderData = { ...item }
+                    if (item.target_type == 'folder') {
+                        folderData?.request?.header?.forEach((it, index) => !it.key && folderData.request?.header.splice(index, 1))
+                        folderData?.request?.query?.forEach((it, index) => !it.key && folderData.request?.query.splice(index, 1))
+                        folderData?.request?.body?.forEach((it, index) => !it.key && folderData.request?.body.splice(index, 1))
+                    }
+                    let _html = template('template-example-doc-tpl', folderData);
+                    if ($('table.header tr').length <= 1) {
+                        $('table.header').parent().hide()
+                        $('table.header').parent().prev().hide()
+                        $('.nav-folder-btn[data-id="1"]').hide()
+                        // $('table.header tr').after('<tr><td colspan="4" style="text-align:center">暂无数据</td></tr>')
+                    }
+                    if ($('table.query tr').length <= 1) {
+                        $('table.query').parent().hide()
+                        $('table.query').parent().prev().hide()
+                        $('.nav-folder-btn[data-id="2"]').hide()
+                        // $('table.query tr').after('<tr><td colspan="4" style="text-align:center">暂无数据</td></tr>')
+                    }
+                    if ($('table.body tr').length <= 1) {
+                        $('table.body').parent().hide()
+                        $('table.body').parent().prev().hide()
+                        $('.nav-folder-btn[data-id="3"]').hide()
+                        // $('table.body tr').after('<tr><td colspan="4" style="text-align:center">暂无数据</td></tr>')
+                    }
+                    if ($('table.header tr').length <= 1 && $('table.query tr').length <= 1 && $('table.body tr').length <= 1) {
+                        $('table.header').parents('.markdown-request').prev().hide()
+                        $('.box-nav .nav-folder-btn[data-id="0"]').hide()
+                        $('.preview-markdown .markdown-request').after('<div style="overflow: hidden;text-align: center;height: 100%;"><img src="https://img.cdn.apipost.cn/v6/docs/img/empty.svg" style="width:100px;margin: 70px auto 20px;;">暂无参数</div>')
+
+                    }
+                    hljs.initHighlighting();
+                } else {
+                    let _export_data = new ClipboardJS('.CopyCurrentData', {
+                        text: function (trigger) {
+                            return trigger.getAttribute('data-clipboard-text');
+                        }
+                    });
+                    console.log(_export_data);
+                    _export_data.on('success', function (e) {
+                        $('.CopyCurrentData').text('已复制').addClass('success');
+                        e.clearSelection();
+                    });
+                    _export_data.on('error', function (e) {
+                        console.log('失败');
+                    });
+                    $('.CopyCurrentData').attr('data-clipboard-text', JSON.stringify(item));
+                }
+                try {
+                    let obj = item.request.body.raw_para.map(item => {
+                        let arr = item.key.split('.')
+                        item.newKey = arr[arr.length - 1]
+                        return item
+                    })
+
+                    let editor = new JsonEditor('#request_body_raw_editor_json', JSON5.parse($('#request_body_raw_editor_input').val()), {}, obj).load(JSON5.parse($('#request_body_raw_editor_input').val()), obj)
+                } catch (e) {
+                    console.log(e);
+                }
+                // 成功响应示例
+                try {
+                    let obj = item.response.success.parameter.map(item => {
+                        let arr = item.key.split('.')
+                        item.newKey = arr[arr.length - 1]
+                        return item
+                    })
+                    let editor = new JsonEditor('#response_success_editor_json', JSON5.parse($('#response_success_editor_input').val()), {}, obj).load(JSON5.parse($('#response_success_editor_input').val()), obj)
+                } catch (e) { console.log(e); }
+                // 失败响应示例
+                try {
+                    let obj = item.response.error.parameter.map(item => {
+                        let arr = item.key.split('.')
+                        item.newKey = arr[arr.length - 1]
+                        return item
+                    })
+
+                    let editor = new JsonEditor('#response_error_editor_json', JSON5.parse($('#response_error_editor_input').val()), {}, obj).load(JSON5.parse($('#response_error_editor_input').val()), obj)
+                } catch (e) { console.log(e); }
+                aptIndent.init();
+            }
+        })
+        $("table").colResizable({
+            liveDrag: true,
+            gripInnerHtml: "<div class='grip'></div>",
+            draggingClass: "dragging",
+            resizeMode: 'fit'
+        });
+    })
+        .on('click', '.control', function (e) {
+            e.stopPropagation()
+            let type = $(this).find('.folder_select').hasClass('down')
+            if (type) {
+                $(this).find('.folder_select').removeClass('down').addClass('right')
+            } else {
+                $(this).find('.folder_select').removeClass('right').addClass('down')
+            }
+            $(this).parents('.target').nextAll().toggle()
+        })
+        .on('input', '.search', function (e) {
+            if (timer) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(() => {
+                let searchVal = $(this).val().toLocaleLowerCase()
+                let TreeData = JSON.parse(JSON.stringify(arr.children))
+                let searchArr = []
+                let LevelArr = []
+                let fatherArr = []
+                function openTree(tree, parent_id) {
+                    tree.forEach((item) => {
+                        if (item.children && item.children.length > 0) {
+                            openTree(item.children, item.local_target_id)
+                        }
+                        item.parent_id = parent_id
+                    })
+                }
+                openTree(TreeData, 0);
+                function levelTree(arr, newarr) {
+                    arr.forEach(item => {
+                        if (item.children && item.children.length > 0) {
+                            newarr.push(item)
+                            levelTree(item.children, newarr)
+                        } else {
+                            newarr.push(item)
+                        }
+                    })
+                }
+                levelTree(TreeData, LevelArr)
+                if ($.trim(searchVal) != '') {
+                    LevelArr.forEach(item => {
+                        if (item.target_type == 'folder') {
+                            if (item.name.toString().toLocaleLowerCase().indexOf(searchVal) > -1) {
+                                searchArr.push(item)
+                            }
+                        } else {
+                            if (item.name.toString().toLocaleLowerCase().indexOf(searchVal) > -1 || item.method.toString().toLocaleLowerCase().indexOf(searchVal) > -1) {
+                                searchArr.push(item)
+                            }
+                        }
+                    })
+                    searchArr.forEach(item => {
+                        findFather(fatherArr, LevelArr, item)
+                    })
+
+                    function findFather(tempArr, arr, self) {
+                        if (self.parent_id != 0) {
+                            arr.filter(item => {
+                                if (self.parent_id == item.local_target_id) {
+                                    findFather(tempArr, arr, item);
+                                    if (tempArr.indexOf(item) === -1) {
+                                        tempArr.push(item);
+                                    }
+                                }
+                            })
+                        }
+                    }
+
+                    let finnalArr = searchArr.concat(fatherArr)
+                    $('.target').hide()
+                    $('.target[data-target_id="001"]').show()
+                    finnalArr.forEach(item => {
+                        $(`.target[data-target_id="${item.local_target_id}"]`).parent().show()
+                        $(`.target[data-target_id="${item.local_target_id}"]`).show()
+                        $('.target.folder').find('.folder_select').removeClass('right').addClass('down')
+                    })
+                } else {
+                    $('.target').parent().show()
+                    $('.target').show()
+                }
+            }, 100)
+        })
+        .on('mouseover', '.target.api', function () {
+            // $(this).find('em').css({ visibility: 'visible' })
+        })
+        .on('mouseleave', '.target.api', function () {
+            // $(this).find('em').css({ visibility: 'hidden' })
+        })
+        .on('click', '.nav-btn', function () {
+            let index = parseInt($(this).attr('data-id'))
+            $('.nav-btn').removeClass('cur')
+            $(this).addClass('cur')
+            console.log(index, $('.box-third .title').eq(index)[0]);
+            let top = $('.box-third .title').eq(index)[0].offsetTop
+            $('.box-third').scrollTop(top)
+        })
+        .on('click', '.nav-folder-btn', function () {
+            let index = parseInt($(this).attr('data-id'))
+            $('.nav-folder-btn').removeClass('cur')
+            $(this).addClass('cur')
+            let top = $('.box-third .title').eq(index)[0].offsetTop
+            $('.box-third').scrollTop(top)
+        })
+        .on('click', '.box-first .top', function () {
+            $('.target').removeClass('active')
+            $(this).addClass('active')
+            const obj = { ...arr?.project }
+            obj.create_dtime = arr?.create_time
+            obj.expire_time = arr?.expire_time
+            obj?.vars?.request?.header?.forEach((it, index) => {
+                if (!it.key) {
+                    obj?.vars?.request?.header?.splice(index, 1)
+                }
+            })
+            obj?.vars?.request?.query?.forEach((it, index) => {
+                if (!it.key) {
+                    obj?.vars?.request?.query?.splice(index, 1)
+                }
+            })
+            obj?.vars?.request?.body?.forEach((it, index) => {
+                if (!it.key) {
+                    obj?.vars?.request?.body?.splice(index, 1)
+                }
+            })
+            let _html = template('golbal-env-tpl', obj);
+            $('.preview-markdown').html(_html)
+        })
+        .on('click', 'h3.title', function () {
+            let type = $(this).find('i').hasClass('fa-angle-down')
+            if (type) {
+                $(this).find('i').removeClass('fa-angle-down').addClass('fa-angle-left')
+            } else {
+                $(this).find('i').removeClass('fa-angle-left').addClass('fa-angle-down')
+            }
+            $(this).next().toggle()
+        })
+        .on('mouseover', '.export', function () {
+            $(this).find('.export_panel').show()
+        })
+        .on('mouseleave', '.export', function () {
+            $(this).find('.export_panel').hide()
+        })
+    $(".box-third").scroll(function () {
+        let arr = []
+        $('.box-third .title').each((i, el) => {
+            arr.push($(el)[0].offsetTop)
+        })
+        arr.push(arr[arr.length - 1] + 10000)
+        let topHeight = $(this).scrollTop();
+        if ($('.target.active').hasClass('api')) {
+            for (let index = 0; index < arr.length; index++) {
+                if (arr[index] < topHeight && topHeight < arr[index + 1]) {
+                    $('.nav-btn').removeClass('cur')
+                    $('.nav-btn').eq(index).addClass('cur')
+                }
+            }
+        } else {
+            for (let index = 0; index < arr.length; index++) {
+                if (arr[index] < topHeight && topHeight < arr[index + 1]) {
+                    $('.nav-folder-btn').removeClass('cur')
+                    $('.nav-folder-btn').eq(index).addClass('cur')
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+
+</html>

@@ -13,10 +13,10 @@ import java.util.Date;
 
 @Component
 public class Picture {
-    private Integer pictureid;
-    private Integer bulletinid;
-    private String pictureurl;
-    private Date picturedate;
+    private Integer pictureid; // 图片编号
+    private Integer bulletinid; // 所属告示编号
+    private String pictureurl; // 图片保存地址
+    private Date picturedate; // 图片最新更改时间
 
     public Picture() {
     }

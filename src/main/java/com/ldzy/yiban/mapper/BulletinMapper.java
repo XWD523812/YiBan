@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public interface BulletinMapper {
 
-    @Select("SELECT * FROM `bulletin` WHERE bulletinid = #{bulletinid}")
+    @Select("SELECT * FROM `bulletin` WHERE bulletinid = #{bulletinid} AND bulletinstate = 0 ")
     public Bulletin findBulletin(Bulletin bulletin);
 
     @Update("<script>" +
@@ -40,7 +40,9 @@ public interface BulletinMapper {
      *  一对多查询，将List对象集合传给Member对象
      * @return
      */
-    @Select("SELECT * FROM `Bulletin` WHERE memberid = #{memberid} ORDER BY bulletindate DESC")
+    @Select("SELECT * FROM `bulletin` " +
+            "WHERE memberid = #{memberid} AND bulletinstate = 0 " +
+            "ORDER BY bulletindate DESC")
     public List<Bulletin> findMemberBulletins(int memberid);
 
     /**
@@ -49,7 +51,7 @@ public interface BulletinMapper {
      * @return
      */
     @Select("SELECT bulletinid,memberid,bulletinclass,bulletintitle,bulletinbody,bulletindate,attendance" +
-            " FROM bulletin WHERE bulletinid = #{bulletinid}")
+            " FROM bulletin WHERE bulletinid = #{bulletinid} AND bulletinstate = 0 ")
     @Results(id = "PicturesMap" , value = {
             @Result(column = "bulletinid",property = "bulletinid"),
             @Result(column = "bulletinid",property = "pictures",
@@ -59,15 +61,23 @@ public interface BulletinMapper {
     public Bulletin findBulletinPictures(Bulletin bulletin);
 
     /**
-     *  查询所有日志并分页显示
+     *  查询所有告示并分页显示
      * @return
      */
     @Select("<script>" +
-            "SELECT * FROM `Bulletin` " +
+            "SELECT * FROM `bulletin` " +
             "<where>" +
-            "<if test='memberid != null'> memberid = #{memberid} </if>" +
+            "<if test='memberid != null'> memberid = #{memberid} AND bulletinstate = 0 </if>" +
             "</where>" +
             "</script>")
     public List<Bulletin> findBulletins(Bulletin bulletin);
 
+    /**
+     *  根据告示状态查询一些告示
+     * @return
+     */
+    @Select("SELECT * FROM `bulletin` " +
+            "WHERE bulletinstate = #{bulletinstate} " +
+            "ORDER BY bulletindate DESC")
+    public List<Bulletin> findBulletinState(Bulletin bulletin);
 }

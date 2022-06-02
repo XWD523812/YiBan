@@ -1,11 +1,15 @@
 package com.ldzy.yiban.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ldzy.yiban.mapper.BulletinMapper;
 import com.ldzy.yiban.model.Bulletin;
+import com.ldzy.yiban.model.Force;
 import com.ldzy.yiban.service.BulletinService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Auction:XWD
@@ -42,5 +46,12 @@ public class BulletinServiceImpl implements BulletinService{
     @Override
     public Bulletin findBulletinPictures(Bulletin bulletin) {
         return bulletinMapper.findBulletinPictures(bulletin);
+    }
+
+    @Override
+    public PageInfo<Bulletin> findBulletinState(Bulletin bulletin, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Bulletin> lists=bulletinMapper.findBulletinState(bulletin);
+        return new PageInfo<Bulletin>(lists);
     }
 }

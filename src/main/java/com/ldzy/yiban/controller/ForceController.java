@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -58,7 +59,12 @@ public class ForceController {
     }
 
     @PostMapping("/findForces")
-    public Result<PageInfo<Force>> findForces(Force force ,int pageNum){
+    public Result<PageInfo<Force>> findForces(Force force ,@RequestParam(defaultValue = "1") int pageNum){
         return Result.success(forceService.findForces(force,pageNum,10));
+    }
+
+    @PostMapping("/findForceState")
+    public Result<PageInfo<Force>> findForceState(Force force ,@RequestParam(defaultValue = "1") int pageNum){
+        return Result.success(forceService.findForceState(force,pageNum,10));
     }
 }

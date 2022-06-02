@@ -14,14 +14,14 @@ import java.util.List;
 
 @Component
 public class Bulletin {
-    private Integer bulletinid;
-    private Integer memberid;
-    private String bulletintitle;
-    private String bulletinbody;
-    private String bulletinclass;
-    private Date bulletindate;
-    private Integer bulletinstate;
-    private Integer attendance;
+    private Integer bulletinid; // 告示编号
+    private Integer memberid; // 所属成员编号
+    private String bulletintitle; // 告示标题
+    private String bulletinbody; // 告示内容
+    private String bulletinclass; // 告示类型
+    private Date bulletindate; // 最后更新时间
+    private Integer bulletinstate; // 告示状态 0？1
+    private Integer attendance; // 浏览数量
 
     private List<Picture> pictures;
 

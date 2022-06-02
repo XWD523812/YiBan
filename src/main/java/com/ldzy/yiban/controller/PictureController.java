@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @ResponseBody
-@RequestMapping("/bulletin")
+@RequestMapping("/picture")
 public class PictureController {
 
     @Autowired

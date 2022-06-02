@@ -1,6 +1,5 @@
 package com.ldzy.yiban.mapper;
 
-import com.ldzy.yiban.model.Force;
 import com.ldzy.yiban.model.Picture;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
