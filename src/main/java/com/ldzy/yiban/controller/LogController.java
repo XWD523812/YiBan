@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 /**
  * @Auction:XWD
@@ -26,7 +27,7 @@ public class LogController {
     public MemberService memberService;
 
     @PostMapping("/login")
-    public Result<Member> login(HttpSession session , Member memberLogin)  {
+    public Result<Member> login(HttpSession session ,@Valid Member memberLogin)  {
 
         //通过id或姓名来登录
         Member member = memberService.findMember(memberLogin);

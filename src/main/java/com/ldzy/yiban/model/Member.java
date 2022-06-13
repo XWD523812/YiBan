@@ -1,6 +1,9 @@
 package com.ldzy.yiban.model;
 
 import org.springframework.stereotype.Component;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,20 +11,36 @@ import java.util.List;
 public class Member implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	@Min(value = 0,message = "编号为自然数，最小为0")
 	private Integer memberid; // 成员编号（主键）
+
+	@Pattern(regexp = "[\u4E00-\u9FA5]",message = "用户名仅限使用中文")
+	@Size(min = 1 ,max = 7 ,message = "用户名必须为1-7位中文字符")
 	private String membername; // 姓名
+
+	// @NotBlank(message = "密码不能为空") 限制长度之后，已经不需要判断是否为空
+	@Size(min = 6 ,max = 18 ,message = "密码必须为6-18位")
 	private String password; // 密码
+
 	private String bumen; // 部门
+
 	private Integer force; // 总战力
+
 	private String picture;// 头像
+
 	private String introduce; //个人简介
+
 	private Integer qx; // 权限
 
 	private List<Force> forces;
+
 	private List<Bulletin> bulletins;
+
 
 	public Member() {
 	}
+
 
 	@Override
 	public String toString() {
@@ -38,6 +57,7 @@ public class Member implements Serializable {
 				", bulletins=" + bulletins +
 				'}';
 	}
+
 
 	public Integer getMemberid() {
 		return memberid;

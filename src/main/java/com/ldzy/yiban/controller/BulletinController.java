@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
+
 /**
  * @Auction:XWD
  * @Data:2022/6/1
@@ -31,13 +33,13 @@ public class BulletinController {
     }
 
     @PostMapping("/insertBulletin")
-    public Result<Bulletin> insertBulletin(Bulletin bulletin){
+    public Result<Bulletin> insertBulletin(@Valid Bulletin bulletin){
         bulletinService.insertBulletin(bulletin);
         return Result.success(bulletinService.findBulletin(bulletin));
     }
 
     @PostMapping("/updateBulletin")
-    public Result<Bulletin> updateBulletin(Bulletin bulletin){
+    public Result<Bulletin> updateBulletin(@Valid Bulletin bulletin){
         bulletinService.updateBulletin(bulletin);
         return Result.success(bulletinService.findBulletin(bulletin));
     }

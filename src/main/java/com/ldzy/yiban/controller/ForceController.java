@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
+
 /**
  * @Auction:XWD
  * @Data:2022/5/26
@@ -36,19 +38,19 @@ public class ForceController {
         return Result.success(forceService.findForce(force));
     }
 
+    @PostMapping("/updateForce")
+    public Result<Force> updateForce(@Valid Force force){
+        forceService.updateForce(force);
+        return Result.success(forceService.findForce(force));
+    }
+
     @PostMapping("/insertForce")
-    public Result<Force> insertForce(Force force){
+    public Result<Force> insertForce(@Valid Force force){
         Member member = new Member();
         member.setMemberid(force.getMemberid());
         member.setForce(force.getForceindex());
         forceService.insertForce(force);
         memberService.updateMember(member);
-        return Result.success(forceService.findForce(force));
-    }
-
-    @PostMapping("/updateForce")
-    public Result<Force> updateForce(Force force){
-        forceService.updateForce(force);
         return Result.success(forceService.findForce(force));
     }
 

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * @Auction:XWD
  * @Data:2022/5/12
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @ResponseBody
 @RequestMapping("/member")
 public class MemberController {
+
     @Autowired
     public MemberService memberService;
 
@@ -27,30 +30,30 @@ public class MemberController {
     }
 
     @PostMapping("/updateMember")
-    public Result<Member> updateMember(Member member){
+    public Result<Member> updateMember(@Valid Member member){
         memberService.updateMember(member);
         return Result.success(memberService.findMember(member));
     }
 
     @PostMapping("/insertMember")
-    public Result<Member> insertMember(Member member){
+    public Result<Member> insertMember(@Valid Member member){
         memberService.insertMember(member);
         return Result.success(memberService.findMember(member));
     }
 
     @PostMapping("/deleteMember")
-    public Result<Member> deleteMember( Member member){
+    public Result<Member> deleteMember(Member member){
         memberService.deleteMember(member);
         return Result.success(member);
     }
 
     @PostMapping("/findMemberForces")
-    public Result<Member> findMemberForce( Member memberid){
+    public Result<Member> findMemberForce(Member memberid){
         return Result.success(memberService.findMemberForce(memberid));
     }
 
     @PostMapping("/findMemberBulletins")
-    public Result<Member> findMemberBulletins( Member memberid){
+    public Result<Member> findMemberBulletins(Member memberid){
         return Result.success(memberService.findMemberBulletins(memberid));
     }
 

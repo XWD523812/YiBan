@@ -2,6 +2,7 @@ package com.ldzy.yiban.model;
 
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.Min;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,9 @@ import java.util.List;
 
 @Component
 public class Bulletin {
+    @Min(value = 0,message = "编号为自然数，最小为0")
     private Integer bulletinid; // 告示编号
+    @Min(value = 0,message = "编号为自然数，最小为0")
     private Integer memberid; // 所属成员编号
     private String bulletintitle; // 告示标题
     private String bulletinbody; // 告示内容

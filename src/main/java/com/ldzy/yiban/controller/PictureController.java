@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
+
 /**
  * @Auction:XWD
  * @Data:2022/6/1
@@ -29,15 +31,15 @@ public class PictureController {
         return Result.success(pictureService.findPicture(picture));
     }
 
-    @PostMapping("/insertPicture")
-    public Result<Picture> insertPicture(Picture picture){
-        pictureService.insertPicture(picture);
+    @PostMapping("/updatePicture")
+    public Result<Picture> updatePicture(@Valid Picture picture){
+        pictureService.updatePicture(picture);
         return Result.success(pictureService.findPicture(picture));
     }
 
-    @PostMapping("/updatePicture")
-    public Result<Picture> updatePicture(Picture picture){
-        pictureService.updatePicture(picture);
+    @PostMapping("/insertPicture")
+    public Result<Picture> insertPicture(@Valid Picture picture){
+        pictureService.insertPicture(picture);
         return Result.success(pictureService.findPicture(picture));
     }
 

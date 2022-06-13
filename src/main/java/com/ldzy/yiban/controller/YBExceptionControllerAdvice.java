@@ -3,12 +3,11 @@ package com.ldzy.yiban.controller;
 import com.ldzy.yiban.exception.LoginException;
 import com.ldzy.yiban.utils.Result;
 import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
-import org.apache.ibatis.reflection.ReflectionException;
 import org.mybatis.logging.Logger;
 import org.mybatis.logging.LoggerFactory;
 import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,9 +29,9 @@ public class YBExceptionControllerAdvice {
         return Result.errorWebYB(e.getMessage());
     }
 
-    @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public Result<String> methodArgumentNotValidHandle(Exception e) {
-        return Result.errorParams("请求参数校验未通过"+e);
+    @ExceptionHandler(value = BindException.class)
+    public Result<String> bindHandle(Exception e) {
+        return Result.errorParams("请求参数校验未通过！原因是："+e);
     }
 
     @ExceptionHandler(value = MyBatisSystemException.class)

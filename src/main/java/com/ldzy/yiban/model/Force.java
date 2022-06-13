@@ -2,6 +2,7 @@ package com.ldzy.yiban.model;
 
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.Min;
 import java.util.Date;
 
 /**
@@ -13,7 +14,9 @@ import java.util.Date;
 
 @Component
 public class Force {
+    @Min(value = 0,message = "编号为自然数，最小为0")
     private Integer forceid; // 战力日志编号
+    @Min(value = 0,message = "编号为自然数，最小为0")
     private Integer memberid; // 所属成员编号
     private Integer forceindex; // 总战力值
     private String forceadddata; // 战力日志描述
