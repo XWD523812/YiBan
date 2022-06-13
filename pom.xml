@@ -94,10 +94,11 @@
         </dependency>
 
         <!-- Thymeleaf 模版引擎 会在第一次对模板解析之后进行缓存，极大的提高了并发处理能力-->
-        <dependency>
+        <!-- 只有导入了 thymeleaf 的依赖才可以通过 Controller 跳转到 templates 中的页面-->
+<!--        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 

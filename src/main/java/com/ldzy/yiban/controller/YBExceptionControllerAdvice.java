@@ -8,6 +8,7 @@ import org.mybatis.logging.Logger;
 import org.mybatis.logging.LoggerFactory;
 import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,9 +25,14 @@ public class YBExceptionControllerAdvice {
     private static final Logger log = LoggerFactory.getLogger(YBExceptionControllerAdvice.class);
 
     @ExceptionHandler(value = Exception.class)
-    public String exceptionHandler(Exception e){
+    public Result<String> exceptionHandler(Exception e){
         System.out.println("未知异常！原因是:"+e);
-        return e.getMessage();
+        return Result.errorWebYB(e.getMessage());
+    }
+
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    public Result<String> methodArgumentNotValidHandle(Exception e) {
+        return Result.errorParams("请求参数校验未通过"+e);
     }
 
     @ExceptionHandler(value = MyBatisSystemException.class)

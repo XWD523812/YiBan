@@ -33,7 +33,7 @@ public class Result<T> {
 
     public static <T> Result<T> errorTopUser(T data) {
         // 用户端错误
-        return new Result<T>(ResultCode.ERROR_TOP_USER.getCode(), ResultCode.ERROR_TOP_USER.getMsg());
+        return new Result<T>(ResultCode.ERROR_TOP_USER.getCode(), ResultCode.ERROR_TOP_USER.getMsg(),data);
     }
 
     public static <T> Result<T> noLogin(T data) {
@@ -41,9 +41,14 @@ public class Result<T> {
         return new Result<T>(ResultCode.NOT_LOGIN.getCode(), ResultCode.NOT_LOGIN.getMsg(),data);
     }
 
-    public static <T> Result<T> noUserOrPassword(T data) {
+    public static <T> Result<T> noUser(T data) {
         // 用户或者密码不正确
-        return new Result<T>(ResultCode.NOT_USER_OR_PASSWORD.getCode(), ResultCode.NOT_USER_OR_PASSWORD.getMsg(),data);
+        return new Result<T>(ResultCode.NOT_USER.getCode(), ResultCode.NOT_USER.getMsg(),data);
+    }
+
+    public static <T> Result<T> noPassword(T data) {
+        // 用户或者密码不正确
+        return new Result<T>(ResultCode.NOT_PASSWORD.getCode(), ResultCode.NOT_PASSWORD.getMsg(),data);
     }
 
     public static <T> Result<T> errorUsername(T data) {
