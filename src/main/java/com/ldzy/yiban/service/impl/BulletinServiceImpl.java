@@ -49,6 +49,11 @@ public class BulletinServiceImpl implements BulletinService{
     }
 
     @Override
+    public Bulletin findBulletinReplies(Bulletin bulletin) {
+        return bulletinMapper.findBulletinReplies(bulletin);
+    }
+
+    @Override
     public PageInfo<Bulletin> findBulletinState(Bulletin bulletin, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         List<Bulletin> lists=bulletinMapper.findBulletinState(bulletin);

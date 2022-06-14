@@ -39,7 +39,7 @@ public interface ForceMapper {
     public void deleteForce(Force force);
 
     /**
-     *  查询所有日志并分页显示
+     *  一对多查询，将List对象集合传给Member对象
      * @return
      */
     @Select("SELECT * FROM `force` " +
@@ -60,7 +60,7 @@ public interface ForceMapper {
     public List<Force> findForces(@Param(value="memberid")Integer memberid);
 
     /**
-     *  根据战力值状态查询一些告示
+     *  根据战力值状态查询一些战力值信息
      * @return
      */
     @Select("SELECT * FROM `force` " +

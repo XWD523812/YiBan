@@ -36,7 +36,9 @@ public class Bulletin {
 
     private Integer attendance; // 浏览数量
 
-    private List<Picture> pictures;
+    private List<Picture> pictures; // 图片集合
+
+    private List<Reply> replies; // 回复集合
 
     public Bulletin() {
     }
@@ -53,6 +55,7 @@ public class Bulletin {
                 ", bulletinstate=" + bulletinstate +
                 ", attendance=" + attendance +
                 ", pictures=" + pictures +
+                ", replies=" + replies +
                 '}';
     }
 
@@ -126,5 +129,13 @@ public class Bulletin {
 
     public void setPictures(List<Picture> pictures) {
         this.pictures = pictures;
+    }
+
+    public List<Reply> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(List<Reply> replies) {
+        this.replies = replies;
     }
 }

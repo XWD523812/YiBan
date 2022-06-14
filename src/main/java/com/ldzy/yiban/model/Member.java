@@ -17,7 +17,7 @@ public class Member implements Serializable {
 	@Min(value = 0,message = "编号为自然数，最小为0")
 	private Integer memberid; // 成员编号（主键）
 
-	@Pattern(regexp = "[\u4E00-\u9FA5]",message = "用户名仅限使用中文")
+	@Pattern(regexp = "^[\\u4e00-\\u9fa5]{0,}$",message = "用户名仅限使用中文")
 	@Size(min = 1 ,max = 7 ,message = "用户名必须为1-7位中文字符")
 	private String membername; // 姓名
 
@@ -34,7 +34,7 @@ public class Member implements Serializable {
 	private String introduce; //个人简介
 
 	@Min(value = 0,message = "状态最小为0，表示最高权限")
-	@Max(value = 1,message = "状态最大为2，表示普通权限")
+	@Max(value = 2,message = "状态最大为2，表示普通权限")
 	private Integer qx; // 权限
 
 	private List<Force> forces;

@@ -31,6 +31,10 @@ public interface BulletinService {
         return null;
     }
 
+    default Bulletin findBulletinReplies(Bulletin bulletin){
+        return null;
+    }
+
     default PageInfo<Bulletin> findBulletinState(Bulletin bulletin ,int pageNum, int pageSize){
         return null;
     }

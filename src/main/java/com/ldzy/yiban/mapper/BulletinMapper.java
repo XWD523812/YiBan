@@ -61,6 +61,21 @@ public interface BulletinMapper {
     public Bulletin findBulletinPictures(Bulletin bulletin);
 
     /**
+     * 一对多查询，将List对象集合接受到List<Picture> replies属性里面
+     *  加载告示里面及的所有回复
+     * @return
+     */
+    @Select("SELECT bulletinid,memberid,bulletinclass,bulletintitle,bulletinbody,bulletindate,attendance" +
+            " FROM bulletin WHERE bulletinid = #{bulletinid} AND bulletinstate = 0 ")
+    @Results(id = "RepliesMap" , value = {
+            @Result(column = "bulletinid",property = "bulletinid"),
+            @Result(column = "bulletinid",property = "replies",
+                    many = @Many(select = "com.ldzy.yiban.mapper.ReplyMapper.findBulletinReplies")
+            )
+    })
+    public Bulletin findBulletinReplies(Bulletin bulletin);
+
+    /**
      *  查询所有告示并分页显示
      * @return
      */

@@ -55,6 +55,11 @@ public class BulletinController {
         return Result.success(bulletinService.findBulletinPictures(bulletin));
     }
 
+    @PostMapping("/findBulletinReplies")
+    public Result<Bulletin> findBulletinReplies(Bulletin bulletin){
+        return Result.success(bulletinService.findBulletinReplies(bulletin));
+    }
+
     @PostMapping("/findBulletinState")
     public Result<PageInfo<Bulletin>> findBulletinState(Bulletin bulletin ,@RequestParam(defaultValue = "1") int pageNum){
         return Result.success(bulletinService.findBulletinState(bulletin,pageNum,10));

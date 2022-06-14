@@ -1,5 +1,7 @@
 package com.ldzy.yiban.model;
 
+import org.springframework.stereotype.Component;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
@@ -12,6 +14,7 @@ import java.util.Date;
  * @version:1.0
  */
 
+@Component
 public class Reply {
 
     @Min(value = 0,message = "编号为自然数，最小为0")
@@ -30,7 +33,7 @@ public class Reply {
     @Size(min = 0 ,max = 100 ,message = "内容必须为0-100个字符")
     private String replybody; // 回复内容
 
-    private Date replydate;
+    private Date replydate; // 回复时间
 
     public Reply() {
     }
