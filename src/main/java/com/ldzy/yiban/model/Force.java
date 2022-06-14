@@ -16,11 +16,16 @@ import java.util.Date;
 public class Force {
     @Min(value = 0,message = "编号为自然数，最小为0")
     private Integer forceid; // 战力日志编号
+
     @Min(value = 0,message = "编号为自然数，最小为0")
     private Integer memberid; // 所属成员编号
+
     private Integer forceindex; // 总战力值
+
     private String forceadddata; // 战力日志描述
+
     private Date forcedate; // 战力最新更改时间
+
     private Integer forcestate; // 战力状态0？1
 
     public Force() {

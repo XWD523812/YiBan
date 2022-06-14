@@ -2,6 +2,7 @@ package com.ldzy.yiban.model;
 
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.Date;
 import java.util.List;
@@ -17,13 +18,22 @@ import java.util.List;
 public class Bulletin {
     @Min(value = 0,message = "编号为自然数，最小为0")
     private Integer bulletinid; // 告示编号
+
     @Min(value = 0,message = "编号为自然数，最小为0")
     private Integer memberid; // 所属成员编号
+
     private String bulletintitle; // 告示标题
+
     private String bulletinbody; // 告示内容
+
     private String bulletinclass; // 告示类型
+
     private Date bulletindate; // 最后更新时间
+
+    @Min(value = 0,message = "状态最小为0，表示正常")
+    @Max(value = 1,message = "状态最大为1，表示隐藏")
     private Integer bulletinstate; // 告示状态 0？1
+
     private Integer attendance; // 浏览数量
 
     private List<Picture> pictures;

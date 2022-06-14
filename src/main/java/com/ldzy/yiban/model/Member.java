@@ -1,6 +1,8 @@
 package com.ldzy.yiban.model;
 
 import org.springframework.stereotype.Component;
+
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -31,6 +33,8 @@ public class Member implements Serializable {
 
 	private String introduce; //个人简介
 
+	@Min(value = 0,message = "状态最小为0，表示最高权限")
+	@Max(value = 1,message = "状态最大为2，表示普通权限")
 	private Integer qx; // 权限
 
 	private List<Force> forces;
